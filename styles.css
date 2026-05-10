@@ -107,16 +107,29 @@ h1, h2, h3 {
 
 /* Header */
 .main-header {
-    padding: 2rem 0 1.5rem;
+    padding: 1.5rem 0 0;
     text-align: center;
-    position: relative;
-    z-index: 1;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(17, 19, 24, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border-color);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="light"] .main-header {
+    background: rgba(249, 249, 255, 0.88);
 }
 
 .main-header h1 {
-    font-size: 3.5rem;
+    font-size: clamp(1.2rem, 5vw, 3.5rem);
     font-weight: 800;
     margin-bottom: 0.5rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .accent {
@@ -128,10 +141,13 @@ h1, h2, h3 {
 }
 
 .subtitle {
-    font-size: 1.1rem;
+    font-size: clamp(0.65rem, 2.5vw, 1.1rem);
     color: var(--text-secondary);
     margin-bottom: 2rem;
     font-weight: 300;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 /* Navigació Principal */
@@ -1576,6 +1592,10 @@ input:checked + .slider:before {
 
     .label-mobile { display: inline; }
     .label-desktop { display: none; }
+
+    .complexity-label {
+        display: none;
+    }
 
     .execution-footer {
         display: flex;

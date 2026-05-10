@@ -36,6 +36,39 @@ let profile = {
     lang: 'ca'
 };
 
+// --- SISTEMA DE TRADUCCIÓ (I18N) ---
+function t(key, params = {}) {
+    const lang = profile.lang || 'ca';
+    let text = (I18N[lang] && I18N[lang][key]) || (I18N['ca'] && I18N['ca'][key]) || key;
+    
+    // Substitució de paràmetres {n}, {total}, etc.
+    Object.keys(params).forEach(p => {
+        text = text.replace(`{${p}}`, params[p]);
+    });
+    
+    return text;
+}
+
+function applyTranslations() {
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        const translated = t(key);
+        
+        // Si el text conté HTML (com el títol), usem innerHTML, si no innerText
+        if (translated.includes('<span') || translated.includes('<br')) {
+            el.innerHTML = translated;
+        } else {
+            el.innerText = translated;
+        }
+    });
+    
+    // Traduir placeholders d'inputs
+    document.querySelectorAll('input[data-i18n-placeholder]').forEach(el => {
+        const key = el.getAttribute('data-i18n-placeholder');
+        el.placeholder = t(key);
+    });
+}
+
 // Funció per obtenir el contingut de l'exercici segons l'idioma
 function getExerciseContent(ex) {
     const lang = profile.lang || 'ca';
@@ -53,6 +86,34 @@ function getExerciseContent(ex) {
     };
 }
 
+// Funció per traduir dinàmicament el text de repeticions suggerides
+function translateReps(repStr) {
+    if (!repStr || profile.lang === 'ca') return repStr;
+    
+    let translated = repStr;
+    const mappings = [
+        { ca: /sèries/g, key: 'word_sets' },
+        { ca: /repeticions/g, key: 'word_reps' },
+        { ca: /per cama/g, key: 'word_per_leg' },
+        { ca: /per braç/g, key: 'word_per_arm' },
+        { ca: /per costat/g, key: 'word_per_side' },
+        { ca: /Objectiu:/g, key: 'word_goal' },
+        { ca: /remades a ritme constant/g, key: 'word_rows_steady' },
+        { ca: /girs/g, key: 'word_twists' },
+        { ca: /de caminada/g, key: 'word_walking' },
+        { ca: /segons/g, key: 'word_seconds' },
+        { ca: /minuts/g, key: 'word_minutes' },
+        { ca: /mínim/g, key: 'word_minimum' },
+        { ca: / de /g, key: 'word_of_connector' }
+    ];
+
+    mappings.forEach(m => {
+        translated = translated.replace(m.ca, t(m.key));
+    });
+
+    return translated;
+}
+
 // Funció per generar les estrelles de complexitat
 function getComplexityStars(level, showLabel = true) {
     const maxStars = 5;
@@ -67,7 +128,7 @@ function getComplexityStars(level, showLabel = true) {
 
     return `
         <div class="complexity-container">
-            <span class="complexity-label">Complexitat</span>
+            <span class="complexity-label">${t('complexity_label')}</span>
             ${starsHtml}
         </div>
     `;
@@ -270,8 +331,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- LÒGICA D'ADAPTACIÓ ---
     function getExecutionGoal(exercise) {
-        if (exercise.nom === 'Descans') {
-            return { sets: 1, reps: "60 s", extra: " de descans", isCount: true };
+        const restName = t('rest_exercise_name');
+        if (exercise.nom === 'Descans' || exercise.nom === restName) {
+            return { sets: 1, reps: "60 s", extra: t('rest_goal_extra'), isCount: true };
         }
         // Multiplicadors per nivell
         const multipliers = {
@@ -291,13 +353,14 @@ document.addEventListener('DOMContentLoaded', () => {
             return {
                 sets: 1,
                 reps: comptatgeOpcions[profile.level] || 250,
-                extra: " remades",
+                extra: t('row_reps'),
                 isCount: true
             };
         }
 
         // --- CAS ESTÀNDARD: SÈRIES X REPS ---
         // Parsejar repeticions suggerides (Ex: "3 sèries de 12-15 repeticions")
+        // Nota: Les repeticions suggerides a exercicis.js són en català, per ara les parsegem així.
         const setsMatch = exercise.repeticions_suggerides.match(/(\d+)\s+sèries/);
         const repsMatch = exercise.repeticions_suggerides.match(/(\d+)-?(\d+)?\s+repeticions/);
         
@@ -311,10 +374,11 @@ document.addEventListener('DOMContentLoaded', () => {
         // Si l'exercici requereix peses, calculem el pes sugerit
         if (exercise.materials.includes('peses')) {
             const calculatedWeight = Math.round(profile.maxWeight * m.weight);
-            finalWeight = ` amb ${calculatedWeight}kg`;
+            finalWeight = t('weight_with', { n: calculatedWeight });
         } else if (exercise.materials.includes('gomes')) {
-            const intensity = profile.level === 'beginner' ? 'lleugera' : (profile.level === 'advanced' ? 'forta' : 'mitjana');
-            finalWeight = ` amb goma ${intensity}`;
+            const intensityKey = profile.level === 'beginner' ? 'rubber_light' : (profile.level === 'advanced' ? 'rubber_strong' : 'rubber_medium');
+            const intensity = t(intensityKey);
+            finalWeight = t('rubber_with', { intensity: intensity });
         }
 
         return {
@@ -338,11 +402,12 @@ document.addEventListener('DOMContentLoaded', () => {
             
             <div class="detail-complexity-box">
                 ${getComplexityStars(ex.complexitat || 3)}
+                <span class="rep-tag" style="margin-left: 1rem;">${translateReps(ex.repeticions_suggerides)}</span>
             </div>
 
             <div class="detail-tabs">
-                <button class="tab-btn active" onclick="switchDetailTab('instruccions')">Instruccions</button>
-                <button class="tab-btn" onclick="switchDetailTab('beneficis')">Beneficis</button>
+                <button class="tab-btn active" onclick="switchDetailTab('instruccions')">${t('tab_instructions')}</button>
+                <button class="tab-btn" onclick="switchDetailTab('beneficis')">${t('tab_benefits')}</button>
             </div>
 
             <div id="pane-instruccions" class="tab-pane active">
@@ -351,14 +416,14 @@ document.addEventListener('DOMContentLoaded', () => {
             
             <div id="pane-beneficis" class="tab-pane">
                 <div class="benefit-box" style="margin-top: 0;">
-                    <strong>Benefici principal:</strong>
+                    <strong>${t('benefit_main_label')}</strong>
                     <p>${content.benefici_salut}</p>
                 </div>
             </div>
 
             <div class="modal-footer-actions">
                 <button class="save-btn" style="width: 100%;" onclick="window.openExecutionModal('${ex.id}'); document.getElementById('detailModal').classList.remove('open');">
-                    Començar entrenament
+                    ${t('btn_start_training')}
                 </button>
             </div>
         `;
@@ -402,13 +467,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
                 <div class="execution-footer">
                     <p class="disclaimer-footer">
-                        Basat en les teves dades de perfil i el pes màxim de ${profile.maxWeight}kg.
+                        ${t('disclaimer_profile', { weight: profile.maxWeight })}
                     </p>
                     <div class="execution-options">
                         <div class="random-toggle-container">
                             <div class="random-toggle-label">
                                 <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M10.59 9.17L5.41 4 4 5.41l5.17 5.17 1.42-1.41zM14.5 4l2.04 2.04L4 18.59 5.41 20 17.96 7.45 20 9.5V4h-5.5zm.73 11.09l-1.41 1.41 3.13 3.13L14.5 22H20v-5.5l-2.04 2.04-2.73-2.73z"/></svg>
-                                <span><span class="label-desktop">Mode Aleatori</span><span class="label-mobile">Aleatori</span></span>
+                                <span><span class="label-desktop">${t('mode_random')}</span><span class="label-mobile">${t('label_random_mobile')}</span></span>
                             </div>
                             <label class="switch">
                                 <input type="checkbox" id="randomModeToggle" ${currentRoutineExecution.isRandom ? 'checked' : ''}>
@@ -418,7 +483,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <div class="random-toggle-container">
                             <div class="random-toggle-label">
                                 <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M15 7v4h1V7h-1zm2 0v4h1V7h-1zm2 0v4h1V7h-1zM5 13h14v-2H5v2zm0 4h14v-2H5v2zM5 7v4h1V7H5zm2 0v4h1V7H7zm2 0v4h1V7H9zm2 0v4h1V7h-1z"/></svg>
-                                <span><span class="label-desktop">Entrenament en circuit</span><span class="label-mobile">Circuit</span></span>
+                                <span><span class="label-desktop">${t('mode_circuit')}</span><span class="label-mobile">${t('label_circuit_mobile')}</span></span>
                             </div>
                             <label class="switch">
                                 <input type="checkbox" id="circuitModeToggle" ${currentRoutineExecution.isCircuit ? 'checked' : ''}>
@@ -427,9 +492,9 @@ document.addEventListener('DOMContentLoaded', () => {
                         </div>
                     </div>
                     <div class="nav-btns-step">
-                        <button class="btn-step" id="prevStep" ${currentIndex === 0 ? 'disabled' : ''}>← Anterior</button>
+                        <button class="btn-step" id="prevStep" ${currentIndex === 0 ? 'disabled' : ''}>${t('btn_prev')}</button>
                         <span>${currentIndex + 1} / ${items.length}</span>
-                        <button class="btn-step" id="nextStep">${isLast ? 'Finalitzar' : 'Següent →'}</button>
+                        <button class="btn-step" id="nextStep">${isLast ? t('btn_finish') : t('btn_next')}</button>
                     </div>
                 </div>
             `;
@@ -438,16 +503,17 @@ document.addEventListener('DOMContentLoaded', () => {
             routineControls = `
                 <div class="execution-footer">
                     <p class="disclaimer-footer">
-                        Basat en les teves dades de perfil i el pes màxim de ${profile.maxWeight}kg.
+                        ${t('disclaimer_profile', { weight: profile.maxWeight })}
                     </p>
-                    <button class="close-btn-action">Tancar</button>
+                    <button class="close-btn-action">${t('btn_close')}</button>
                 </div>
             `;
         }
 
         const item = isRoutine ? currentRoutineExecution.items[currentRoutineExecution.currentIndex] : { id: exId, set: 1 };
         const exItem = isRoutine ? CATALEG_EXERCICIS.find(e => e.id === item.id) : ex;
-        const goalText = goal.isCount ? `${goal.reps}${goal.extra}` : `SÈRIE ${item.set} de ${goal.sets} (${goal.reps} repeticions${goal.extra})`;
+        
+        const goalText = goal.isCount ? `${goal.reps}${goal.extra}` : `${t('series_label', { n: item.set, total: goal.sets })} ${t('reps_label', { n: goal.reps, extra: goal.extra })}`;
         const content_ex = getExerciseContent(ex);
 
         const nomFitxer = getExerciseImage(ex);
@@ -457,7 +523,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <img src="${nomFitxer}" class="modal-img" alt="${content_ex.nom}" 
                      onerror="this.onerror=null;this.src='https://placehold.co/400x200/111/4facfe?text=${encodeURIComponent(content_ex.nom)}'">
                 <div class="goal-highlight">
-                    <h4>El teu objectiu per avui:</h4>
+                    <h4>${t('goal_label')}</h4>
                     <div class="goal-val">${goalText}</div>
                     ${getComplexityStars(ex.complexitat || 3)}
                 </div>
@@ -600,7 +666,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 intensity: finalIntensity,
                 avgComplexity: parseFloat(avgComplexity),
                 progress: Math.round(progress),
-                status: progress >= 100 ? 'Completada' : 'Parcial'
+                status: progress >= 100 ? t('status_completed') : t('status_partial')
             };
 
             activityLog.unshift(session);
@@ -625,7 +691,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderRoutines() {
         routinesList.innerHTML = '';
         if (routines.length === 0) {
-            routinesList.innerHTML = `<div class="empty-state">No tens cap rutina encara.</div>`;
+            routinesList.innerHTML = `<div class="empty-state">${t('no_routines')}</div>`;
             return;
         }
 
@@ -643,7 +709,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             card.innerHTML = `
                 <h3>${routine.name}</h3>
-                <p class="count">${routine.exercises.length} exercicis</p>
+                <p class="count">${t('routine_count', { n: routine.exercises.length })}</p>
                 <p class="routine-exercises-list">${exerciseNames}</p>
                 <div class="routine-actions">
                     <button class="btn-play" title="Executar Rutina">
@@ -680,7 +746,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderActivityLog() {
         activityLogList.innerHTML = '';
         if (activityLog.length === 0) {
-            activityLogList.innerHTML = `<div class="empty-state">Encara no tens cap sessió registrada.</div>`;
+            activityLogList.innerHTML = `<div class="empty-state">${t('no_activity')}</div>`;
             return;
         }
 
@@ -695,7 +761,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <span class="activity-time">${session.startTime} - ${session.endTime}</span>
                     </div>
                     <div class="activity-header-right">
-                        <span class="activity-status ${session.status.toLowerCase()}">${session.status}</span>
+                        <span class="activity-status ${session.status === t('status_completed') ? 'completada' : 'parcial'}">${session.status}</span>
                         <button class="btn-icon-delete" title="Esborrar Registre">
                             <svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
                         </button>
@@ -707,15 +773,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
                 <div class="activity-stats">
                     <div class="stat-item">
-                        <span class="stat-label">Durada</span>
+                        <span class="stat-label">${t('stat_duration')}</span>
                         <span class="stat-val">${session.duration} min</span>
                     </div>
                     <div class="stat-item">
-                        <span class="stat-label">Progrés</span>
+                        <span class="stat-label">${t('stat_progress')}</span>
                         <span class="stat-val">${session.progress}%</span>
                     </div>
                     <div class="stat-item">
-                        <span class="stat-label">Intensitat</span>
+                        <span class="stat-label">${t('stat_intensity')}</span>
                         <span class="stat-val intensity">${session.intensity}</span>
                     </div>
                 </div>
@@ -852,10 +918,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.removeExercise = (rIdx, eIdx) => {
         const r = routines[rIdx];
         if (r.exercises.length <= 1) {
-            // alert() is still a bit dangerous if blocked, but it's a safety guard.
-            // I'll leave it as a simple console alert or just return.
-            // Actually, I'll use a simple alert but let's hope it works now that listeners are fixed.
-            alert("La rutina ha de tenir almenys un exercici.");
+            alert(t('error_min_one_exercise'));
             return;
         }
         r.exercises.splice(eIdx, 1);
@@ -876,7 +939,8 @@ document.addEventListener('DOMContentLoaded', () => {
             
             routine.exercises.forEach((exId, exIndex) => {
                 const ex = CATALEG_EXERCICIS.find(e => e.id === exId);
-                const exName = ex ? ex.nom : "Exercici desconegut";
+                const content = getExerciseContent(ex);
+                const exName = ex ? content.nom : t('exercise_unknown');
                 const exImg = getExerciseImage(ex);
                 
                 const li = document.createElement('li');
@@ -904,19 +968,19 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             editContent.innerHTML = `
-                <h2>Editar: ${routine.name}</h2>
+                <h2>${t('edit_routine_title', { name: routine.name })}</h2>
                 <div class="form-group" style="margin-bottom: 2rem;">
-                    <label>Nom de la rutina</label>
+                    <label>${t('routine_name_label')}</label>
                     <input type="text" id="editRoutineName" value="${routine.name}">
                 </div>
-                <h3>Ordre dels exercicis</h3>
+                <h3>${t('edit_routine_order')}</h3>
             `;
             editContent.appendChild(editListUl);
             
             const addBtn = document.createElement('button');
             addBtn.className = 'btn-text';
             addBtn.style.cssText = "color: var(--primary); font-weight: 600; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; background: none; border: none; cursor: pointer; padding: 0.5rem 0;";
-            addBtn.innerHTML = `<span>+</span> Afegir exercici`;
+            addBtn.innerHTML = `<span>+</span> ${t('btn_add_exercise')}`;
             addBtn.onclick = () => window.showAddExerciseList(index);
             editContent.appendChild(addBtn);
 
@@ -927,7 +991,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const saveBtn = document.createElement('button');
             saveBtn.className = 'save-btn';
-            saveBtn.innerText = 'Guardar canvis';
+            saveBtn.innerText = t('btn_save_changes');
             saveBtn.onclick = () => window.saveEditedRoutine(index);
             editContent.appendChild(saveBtn);
         };
@@ -948,11 +1012,11 @@ document.addEventListener('DOMContentLoaded', () => {
             let html = `
                 <div class="add-exercise-selection">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-                        <h4 style="margin: 0;">Tria un exercici:</h4>
-                        <button class="btn-icon-delete" style="padding: 0.2rem 0.6rem; font-size: 0.8rem;" onclick="document.getElementById('addExerciseContainer').classList.add('hidden')">Tancar llista</button>
+                        <h4 style="margin: 0;">${t('add_ex_title')}</h4>
+                        <button class="btn-icon-delete" style="padding: 0.2rem 0.6rem; font-size: 0.8rem;" onclick="document.getElementById('addExerciseContainer').classList.add('hidden')">${t('btn_close_list')}</button>
                     </div>
                     <div class="search-box" style="margin-bottom: 1rem;">
-                        <input type="text" id="addExSearch" placeholder="Cerca exercici..." style="width: 100%; padding: 0.6rem; border-radius: 10px; border: 1px solid var(--border-color); background: var(--bg-dark); color: white;" oninput="window.filterAddExerciseList()">
+                        <input type="text" id="addExSearch" placeholder="${t('add_ex_search')}" style="width: 100%; padding: 0.6rem; border-radius: 10px; border: 1px solid var(--border-color); background: var(--bg-dark); color: white;" oninput="window.filterAddExerciseList()">
                     </div>
                     <div class="add-exercise-list-scroll" id="addExListScroll">
             `;
@@ -965,9 +1029,9 @@ document.addEventListener('DOMContentLoaded', () => {
                         <div class="add-exercise-item" onclick="window.addExerciseToRoutine(${rIdx}, '${ex.id}')">
                             <img src="${exImg}" class="edit-item-img" style="width: 40px; height: 40px;" onerror="this.onerror=null;this.src='https://placehold.co/100x100/111/4facfe?text=?'">
                             <div class="add-ex-info">
-                                <span class="add-ex-name">${ex.nom}</span>
+                                <span class="add-ex-name">${getExerciseContent(ex).nom}</span>
                                 ${getComplexityStars(ex.complexitat || 3, false)}
-                                <span class="add-ex-cat">${ex.categoria}</span>
+                                <span class="add-ex-cat">${t('cat_' + ex.categoria)}</span>
                             </div>
                             <button class="btn-edit-control">+</button>
                         </div>
@@ -1019,7 +1083,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 renderRoutines();
                 history.back(); // Tancar modal
             } else {
-                alert("La rutina ha de tenir un nom.");
+                alert(t('error_routine_name'));
             }
         };
     };
@@ -1034,7 +1098,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function updateSelectionCounter() {
-        selectionCount.innerText = `${selectedExercisesIds.length} exercicis seleccionats`;
+        selectionCount.innerText = t('selection_count', { n: selectedExercisesIds.length });
     }
 
     // --- GESTIÓ DEL CATÀLEG ---
@@ -1075,14 +1139,14 @@ document.addEventListener('DOMContentLoaded', () => {
         
         exerciseGrid.innerHTML = '';
         if (exercises.length === 0) {
-            exerciseGrid.innerHTML = `<div class="loading"><p>No hi ha exercicis...</p></div>`;
+            exerciseGrid.innerHTML = `<div class="loading"><p>${t('no_exercises_found')}</p></div>`;
             if (counter) counter.classList.add('hidden');
             return;
         }
 
         if (counter) {
             counter.classList.remove('hidden');
-            counter.innerText = `${exercises.length} exercicis de ${totalExercises} al catàleg`;
+            counter.innerText = t('exercise_counter', { n: exercises.length, total: totalExercises });
         }
 
         exercises.forEach(ex => {
@@ -1096,16 +1160,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 <img src="${nomFitxer}" alt="${content.nom}" class="card-img" 
                      onerror="this.onerror=null;this.src='https://placehold.co/400x200/111/4facfe?text=${encodeURIComponent(content.nom)}'">
                 <div class="card-content">
-                    <span class="category-tag">${ex.categoria}</span>
+                    <span class="category-tag">${t('cat_' + ex.categoria)}</span>
                     <h3>${content.nom}</h3>
                     ${getComplexityStars(ex.complexitat || 3)}
-                    <span class="rep-tag">${ex.repeticions_suggerides}</span>
+                    <span class="rep-tag">${translateReps(ex.repeticions_suggerides)}</span>
                     <p class="instructions">${content.instruccions}</p>
                     <div class="benefit-box">
-                        <strong>Benefici Salut:</strong>
+                        <strong>${t('benefit_health_label')}</strong>
                         <p>${content.benefici_salut}</p>
                     </div>
-                    <button class="btn-quick-play" title="Executar ràpidament">▶</button>
+                    <button class="btn-quick-play" title="${t('btn_quick_play_title')}">▶</button>
                 </div>
             `;
             
@@ -1187,6 +1251,7 @@ document.addEventListener('DOMContentLoaded', () => {
             lang: document.getElementById('pLang').value
         };
         saveProfile(newData);
+        applyTranslations();
         updateDisplay();
         navTabs[0].click(); // Anar a explorar automàticament
     });
@@ -1278,7 +1343,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     btnSaveRoutine.addEventListener('click', () => {
         if (selectedExercisesIds.length === 0) {
-            alert("Selecciona almenys un exercici.");
+            alert(t('error_no_exercises'));
             return;
         }
         routineNameInput.value = "";
@@ -1296,7 +1361,7 @@ document.addEventListener('DOMContentLoaded', () => {
             toggleSelectionMode(false);
             navTabs[1].click(); // Anar a rutines
         } else {
-            alert("Siusplau, introdueix un nom per a la rutina.");
+            alert(t('error_routine_name'));
         }
     });
 
@@ -1325,6 +1390,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         
         updateDisplay();
+        applyTranslations();
     } catch (err) {
         console.error("Error durant la inicialització:", err);
     }
