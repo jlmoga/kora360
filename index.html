@@ -40,20 +40,28 @@
                 <div class="nav-tab" data-view="profile" data-i18n="nav_profile">El meu perfil</div>
             </nav>
 
-            <div class="filter-row" id="catalogFilters">
-                <nav class="filters" id="categorySelection">
-                    <button class="filter-btn active" data-category="tots" data-i18n="cat_tots">Tots</button>
-                    <button class="filter-btn" data-category="Cames" data-i18n="cat_Cames">Cames</button>
-                    <button class="filter-btn" data-category="Empenta" data-i18n="cat_Empenta">Empenta</button>
-                    <button class="filter-btn" data-category="Tracció" data-i18n="cat_Tracció">Tracció</button>
-                    <button class="filter-btn" data-category="Core" data-i18n="cat_Core">Core</button>
-                    <button class="filter-btn" data-category="Cardio" data-i18n="cat_Cardio">Cardio</button>
-                </nav>
+            <div class="filter-toggle-bar" id="filterToggleBar">
+                <button id="btnToggleFilters" class="filter-toggle-btn" aria-expanded="true">
+                    <span data-i18n="filters_label">Filtres</span>
+                    <svg class="filter-chevron" viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+                </button>
+            </div>
+            <div class="filter-collapsible" id="filterCollapsible">
+                <div class="filter-row" id="catalogFilters">
+                    <nav class="filters" id="categorySelection">
+                        <button class="filter-btn active" data-category="tots" data-i18n="cat_tots">Tots</button>
+                        <button class="filter-btn" data-category="Cames" data-i18n="cat_Cames">Cames</button>
+                        <button class="filter-btn" data-category="Empenta" data-i18n="cat_Empenta">Empenta</button>
+                        <button class="filter-btn" data-category="Tracció" data-i18n="cat_Tracció">Tracció</button>
+                        <button class="filter-btn" data-category="Core" data-i18n="cat_Core">Core</button>
+                        <button class="filter-btn" data-category="Cardio" data-i18n="cat_Cardio">Cardio</button>
+                    </nav>
 
-                <div class="material-filter-container">
-                    <button id="toggleMaterialMenu" class="filter-btn material-trigger" data-i18n="filter_material_btn">
-                        Filtrar per material <span class="arrow">▾</span>
-                    </button>
+                    <div class="material-filter-container">
+                        <button id="toggleMaterialMenu" class="filter-btn material-trigger" data-i18n="filter_material_btn">
+                            Filtrar per material <span class="arrow">▾</span>
+                        </button>
+                    </div>
                 </div>
             </div>
 
@@ -96,17 +104,6 @@
             </div>
         </div>
 
-        <!-- Barra d'Accions de Selecció (Mode Creació Rutina) -->
-        <div id="selectionActionBar" class="selection-bar hidden">
-            <div class="container bar-content">
-                <span id="selectionCount" data-i18n="selection_count">0 exercicis seleccionats</span>
-                <div class="bar-btns">
-                    <button id="cancelSelection" class="btn-danger-small" data-i18n="btn_cancel">Cancel·lar</button>
-                    <button id="saveRoutine" class="btn-primary-small" data-i18n="btn_save_routine">Guardar
-                        rutina</button>
-                </div>
-            </div>
-        </div>
     </header>
 
     <main class="main-content">
@@ -260,6 +257,17 @@
     <script src="translations.js"></script>
     <script src="exercicis.js"></script>
     <script src="app.js"></script>
+    <!-- Barra d'Accions de Selecció (Mode Creació Rutina) -->
+    <div id="selectionActionBar" class="selection-bar hidden">
+        <div class="container bar-content">
+            <span id="selectionCount" data-i18n="selection_count">0 exercicis seleccionats</span>
+            <div class="bar-btns">
+                <button id="cancelSelection" class="btn-danger-small" data-i18n="btn_cancel">Cancel·lar</button>
+                <button id="saveRoutine" class="btn-primary-small" data-i18n="btn_save_routine">Guardar rutina</button>
+            </div>
+        </div>
+    </div>
+
 </body>
 
 </html>

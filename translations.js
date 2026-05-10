@@ -10,6 +10,7 @@ const I18N = {
         "nav_routines": "Les meves rutines",
         "nav_activity": "Registre",
         "nav_profile": "El meu perfil",
+        "filters_label": "Filtres",
         
         // Header
         "app_title": "Kora 360. <span class=\"accent\">El teu gimnàs a casa</span>",
@@ -138,6 +139,7 @@ const I18N = {
         "nav_routines": "Mis rutinas",
         "nav_activity": "Registro",
         "nav_profile": "Mi perfil",
+        "filters_label": "Filtros",
         
         // Header
         "app_title": "Kora 360. <span class=\"accent\">Tu gimnasio en casa</span>",
@@ -266,6 +268,7 @@ const I18N = {
         "nav_routines": "My routines",
         "nav_activity": "Log",
         "nav_profile": "My profile",
+        "filters_label": "Filters",
         
         // Header
         "app_title": "Kora 360. <span class=\"accent\">Your home gym</span>",

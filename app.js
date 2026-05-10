@@ -166,6 +166,11 @@ document.addEventListener('DOMContentLoaded', () => {
         activitySection.classList.toggle('hidden', view !== 'activity');
         catalogFilters.classList.toggle('hidden', view !== 'catalog');
 
+        const filterToggleBar = document.getElementById('filterToggleBar');
+        const filterCollapsible = document.getElementById('filterCollapsible');
+        if (filterToggleBar) filterToggleBar.classList.toggle('hidden', view !== 'catalog');
+        if (filterCollapsible) filterCollapsible.classList.toggle('hidden', view !== 'catalog');
+
         // Executar renderitzats segons la vista
         if (view === 'catalog') {
             updateDisplay();
@@ -1205,6 +1210,18 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- ESDEVENIMENTS ---
+
+    // Toggle col·lapsable de filtres
+    const btnToggleFilters = document.getElementById('btnToggleFilters');
+    const filterCollapsible = document.getElementById('filterCollapsible');
+    if (btnToggleFilters && filterCollapsible) {
+        btnToggleFilters.addEventListener('click', () => {
+            const isExpanded = btnToggleFilters.getAttribute('aria-expanded') === 'true';
+            btnToggleFilters.setAttribute('aria-expanded', String(!isExpanded));
+            filterCollapsible.classList.toggle('collapsed', isExpanded);
+        });
+    }
+
     materialTrigger.addEventListener('click', () => {
         const isOpen = materialMenu.classList.toggle('open');
         materialTrigger.classList.toggle('active', isOpen);
