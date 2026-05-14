@@ -1193,12 +1193,28 @@ h1, h2, h3 {
 }
 
 /* Barra de Progrés en Modal */
-.progress-container {
+.progress-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
     width: 100%;
+    margin-bottom: 1.5rem;
+}
+
+.progress-info-count {
+    font-size: 0.85rem;
+    font-weight: 800;
+    color: var(--primary);
+    min-width: 1.2rem;
+    text-align: center;
+    font-family: 'Outfit', sans-serif;
+}
+
+.progress-container {
+    flex-grow: 1;
     height: 6px;
     background: rgba(255, 255, 255, 0.1);
     border-radius: 10px;
-    margin-bottom: 1.5rem;
     overflow: hidden;
 }
 
@@ -1653,11 +1669,16 @@ input:checked + .slider:before {
     .execution-footer {
         display: flex;
         flex-direction: column;
+        margin-top: auto !important;
+    }
+
+    .progress-wrapper {
+        order: 0;
+        margin-bottom: 1.5rem !important;
     }
 
     .progress-container {
-        margin-top: auto !important;
-        margin-bottom: 1.5rem !important;
+        margin-bottom: 0 !important;
     }
 
     .nav-btns-step {

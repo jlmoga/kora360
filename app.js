@@ -33,7 +33,8 @@ let profile = {
     sex: 'home',
     level: 'intermediate',
     maxWeight: 10,
-    lang: 'ca'
+    lang: 'ca',
+    defaultCircuit: false
 };
 
 // --- SISTEMA DE TRADUCCIÓ (I18N) ---
@@ -112,6 +113,16 @@ function translateReps(repStr) {
     });
 
     return translated;
+}
+
+// Funció per obtenir una mida de lletra dinàmica segons la longitud del text (per a mòbil)
+function getDynamicFontSize(text) {
+    if (!text) return '1rem';
+    const len = text.length;
+    if (len < 100) return '1.5rem';
+    if (len < 200) return '1.25rem';
+    if (len < 350) return '1.05rem';
+    return '0.85rem';
 }
 
 // Funció per generar les estrelles de complexitat
@@ -312,6 +323,7 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('pLevel').value = profile.level;
             document.getElementById('pMaxWeight').value = profile.maxWeight;
             document.getElementById('pLang').value = profile.lang || 'ca';
+            document.getElementById('pDefaultCircuit').checked = profile.defaultCircuit || false;
             
             if (profile.theme) applyTheme(profile.theme);
             return true;
@@ -467,10 +479,14 @@ document.addEventListener('DOMContentLoaded', () => {
             const isLast = currentIndex === items.length - 1;
 
             routineControls = `
-                <div class="progress-container">
-                    <div class="progress-bar" style="width: ${progress}%"></div>
-                </div>
                 <div class="execution-footer">
+                    <div class="progress-wrapper">
+                        <span class="progress-info-count">${currentIndex}</span>
+                        <div class="progress-container">
+                            <div class="progress-bar" style="width: ${progress}%"></div>
+                        </div>
+                        <span class="progress-info-count">${items.length - currentIndex}</span>
+                    </div>
                     <p class="disclaimer-footer">
                         ${t('disclaimer_profile', { weight: profile.maxWeight })}
                     </p>
@@ -533,7 +549,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     ${getComplexityStars(ex.complexitat || 3)}
                 </div>
             </div>
-            <p class="modal-desc">${content_ex.instruccions}</p>
+            <p class="modal-desc" style="font-size: ${getDynamicFontSize(content_ex.instruccions)};">${content_ex.instruccions}</p>
             ${routineControls}
         `;
         if (!executionModal.classList.contains('open')) {
@@ -816,7 +832,7 @@ document.addEventListener('DOMContentLoaded', () => {
         currentRoutineExecution = {
             currentIndex: 0,
             isRandom: false,
-            isCircuit: false,
+            isCircuit: profile.defaultCircuit || false,
             originalExercises: routine.exercises, // Guardem IDs originals
             items: [],
             startTime: new Date(),
@@ -1265,7 +1281,8 @@ document.addEventListener('DOMContentLoaded', () => {
             sex: document.getElementById('pSex').value,
             level: document.getElementById('pLevel').value,
             maxWeight: parseInt(document.getElementById('pMaxWeight').value),
-            lang: document.getElementById('pLang').value
+            lang: document.getElementById('pLang').value,
+            defaultCircuit: document.getElementById('pDefaultCircuit').checked
         };
         saveProfile(newData);
         applyTranslations();

@@ -103,6 +103,7 @@ const I18N = {
         "level_intermediate": "Intermedi",
         "level_advanced": "Avançat",
         "label_max_weight": "Pes màxim mancuernes (kg)",
+        "label_default_circuit": "Entrenament per defecte en mode circuit",
         "btn_save_profile": "Guardar perfil",
         
         // Miscel·lània
@@ -232,6 +233,7 @@ const I18N = {
         "level_intermediate": "Intermedio",
         "level_advanced": "Avanzado",
         "label_max_weight": "Peso máximo mancuernas (kg)",
+        "label_default_circuit": "Entrenamiento por defecto en modo circuito",
         "btn_save_profile": "Guardar perfil",
         
         // Miscelánea
@@ -361,6 +363,7 @@ const I18N = {
         "level_intermediate": "Intermediate",
         "level_advanced": "Advanced",
         "label_max_weight": "Max dumbbell weight (kg)",
+        "label_default_circuit": "Default training in circuit mode",
         "btn_save_profile": "Save profile",
         
         // Miscellaneous
