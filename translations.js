@@ -66,7 +66,7 @@ const I18N = {
         // Execució
         "goal_label": "El teu objectiu per avui:",
         "series_label": "SÈRIE {n} de {total}",
-        "reps_label": "({n} repeticions{extra})",
+        "reps_label": "({n} {unit}{extra})",
         "disclaimer_profile": "Basat en les teves dades de perfil i el pes màxim de {weight}kg.",
         "btn_prev": "← Anterior",
         "btn_next": "Següent →",
@@ -131,6 +131,7 @@ const I18N = {
         "word_walking": "de caminada",
         "word_seconds": "segons",
         "word_minutes": "minuts",
+        "word_steps": "passes",
         "word_minimum": "mínim",
         "word_of_connector": " de "
     },
@@ -196,7 +197,7 @@ const I18N = {
         // Ejecución
         "goal_label": "Tu objetivo para hoy:",
         "series_label": "SERIE {n} de {total}",
-        "reps_label": "({n} repeticiones{extra})",
+        "reps_label": "({n} {unit}{extra})",
         "disclaimer_profile": "Basado en tus datos de perfil y el peso máximo de {weight}kg.",
         "btn_prev": "← Anterior",
         "btn_next": "Siguiente →",
@@ -261,6 +262,7 @@ const I18N = {
         "word_walking": "de caminata",
         "word_seconds": "segundos",
         "word_minutes": "minutos",
+        "word_steps": "pasos",
         "word_minimum": "mínimo",
         "word_of_connector": " de "
     },
@@ -326,7 +328,7 @@ const I18N = {
         // Execution
         "goal_label": "Your goal for today:",
         "series_label": "SET {n} of {total}",
-        "reps_label": "({n} reps{extra})",
+        "reps_label": "({n} {unit}{extra})",
         "disclaimer_profile": "Based on your profile data and maximum weight of {weight}kg.",
         "btn_prev": "← Previous",
         "btn_next": "Next →",
@@ -391,6 +393,7 @@ const I18N = {
         "word_walking": "walking",
         "word_seconds": "seconds",
         "word_minutes": "minutes",
+        "word_steps": "steps",
         "word_minimum": "minimum",
         "word_of_connector": " of "
     }

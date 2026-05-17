@@ -43,7 +43,9 @@
             <div class="filter-toggle-bar" id="filterToggleBar">
                 <button id="btnToggleFilters" class="filter-toggle-btn" aria-expanded="true">
                     <span data-i18n="filters_label">Filtres</span>
-                    <svg class="filter-chevron" viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+                    <svg class="filter-chevron" viewBox="0 0 24 24" width="16" height="16">
+                        <path fill="currentColor" d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z" />
+                    </svg>
                 </button>
             </div>
             <div class="filter-collapsible" id="filterCollapsible">
@@ -58,7 +60,8 @@
                     </nav>
 
                     <div class="material-filter-container">
-                        <button id="toggleMaterialMenu" class="filter-btn material-trigger" data-i18n="filter_material_btn">
+                        <button id="toggleMaterialMenu" class="filter-btn material-trigger"
+                            data-i18n="filter_material_btn">
                             Filtrar per material <span class="arrow">▾</span>
                         </button>
                     </div>
@@ -188,12 +191,14 @@
                             <label data-i18n="label_max_weight">Pes màxim mancuernes (kg)</label>
                             <input type="number" id="pMaxWeight" value="10" min="1" max="100">
                         </div>
-                        <div class="form-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; align-items: start;">
+                        <div class="form-row"
+                            style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; align-items: start;">
                             <div class="form-group">
                                 <label data-i18n="label_level">Nivell de condició física</label>
                                 <select id="pLevel">
                                     <option value="beginner" data-i18n="level_beginner">Principiant</option>
-                                    <option value="intermediate" selected data-i18n="level_intermediate">Intermedi</option>
+                                    <option value="intermediate" selected data-i18n="level_intermediate">Intermedi
+                                    </option>
                                     <option value="advanced" data-i18n="level_advanced">Avançat</option>
                                 </select>
                             </div>
@@ -261,7 +266,7 @@
     <footer class="main-footer">
         <div class="container">
             <p>&copy; 2026 <a href="https://www.calaixagil.com" target="_blank"
-                    style="color: inherit; text-decoration: none;">calaix[À]gil.com</a> - v2.4</p>
+                    style="color: inherit; text-decoration: none;">calaix[À]gil.com</a> - v2.5</p>
         </div>
     </footer>
 

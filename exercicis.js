@@ -48,7 +48,7 @@ const CATALEG_EXERCICIS = [
         equipament: "Banqueta, peses (opcional)",
         materials: ["banqueta", "pes_corporal"],
         repeticions_suggerides: "3 sèries de 12 repeticions per cama",
-        instruccions: "Col·loca un sencer sobre la banqueta. Empeny amb aquesta cama per elevar tot el cos fins a quedar dret sobre la banqueta. Baixa lentament per tornar a terra sense deixar caure el pes bruscament.",
+        instruccions: "Col·loca un peu sencer sobre la banqueta. Empeny amb aquesta cama per elevar tot el cos fins a quedar dret sobre la banqueta. Baixa lentament per tornar a terra sense deixar caure el pes bruscament.",
         benefici_salut: "Millora la potència de les cames, la coordinació i és excel·lent per al treball cardiovascular de baixa intensitat combinat amb força.",
         translations: {
             ca: { nom: "Step-up (pujar a banqueta)", instruccions: "Col·loca un peu sobre la banqueta. Empeny amb aquesta cama per elevar tot el cos fins a quedar dret sobre la banqueta. Baixa lentament per tornar a terra sense deixar caure el pes bruscament.", benefici: "Millora la potència de les cames, la coordinació i és excel·lent per al treball cardiovascular de baixa intensitat combinat amb força." },
@@ -150,10 +150,10 @@ const CATALEG_EXERCICIS = [
         equipament: "Pilota suïssa (Fitball)",
         materials: ["pilota"],
         repeticions_suggerides: "3 sèries de 12 repeticions",
-        instruccions: "Estirat d'esquena amb els talons sobre la pilota. Eleva le maluc i estira la pilota cap a tu flexionant els genolls, després torna a estirar les cames sense baixar le maluc.",
+        instruccions: "Estirat d'esquena amb els talons sobre la pilota. Eleva el maluc i estira la pilota cap a tu flexionant els genolls, després torna a estirar les cames sense baixar el maluc.",
         benefici_salut: "Treball d'estabilitat i enfortiment de la cadena posterior molt intens.",
         translations: {
-            ca: { nom: "Isquios amb pilota", instruccions: "Estirat d'esquena amb els talons sobre la pilota. Eleva le maluc i estira la pilota cap a tu flexionant els genolls, després torna a estirar les cames sense baixar le maluc.", benefici: "Treball d'estabilitat i enfortiment de la cadena posterior molt intens." },
+            ca: { nom: "Isquios amb pilota", instruccions: "Estirat d'esquena amb els talons sobre la pilota. Eleva el maluc i estira la pilota cap a tu flexionant els genolls, després torna a estirar les cames sense baixar el maluc.", benefici: "Treball d'estabilitat i enfortiment de la cadena posterior molt intens." },
             es: { nom: "Isquios con pelota", instruccions: "Tumbado boca arriba con los talones sobre la pelota. Eleva la cadera y tira de la pelota hacia ti flexionando las rodillas, después vuelve a estirar las piernas sin bajar la cadera.", benefici: "Trabajo de estabilidad y fortalecimiento de la cadena posterior muy intenso." },
             en: { nom: "Stability Ball Hamstring Curl", instruccions: "Lie on your back with your heels on the ball. Raise your hips and pull the ball toward you by bending your knees, then extend your legs again without lowering your hips.", benefici: "Very intense stability and strengthening work for the posterior chain." }
         }
@@ -243,6 +243,23 @@ const CATALEG_EXERCICIS = [
             en: { nom: "Walking Lunges with Weights", instruccions: "Take a long step forward and bend both knees until the back one almost touches the ground. Push off to advance the back leg and continue the movement.", benefici: "Develops brutal concentric and eccentric strength, essential for steep climbs and controlling descents." }
         }
     },
+    {
+        id: "cames-15",
+        nom: "Estocades en moviment",
+        imatge: "estocades-en-moviment",
+        categoria: "Cames",
+        complexitat: 5,
+        equipament: "Peses",
+        materials: ["peses"],
+        repeticions_suggerides: "3 sèries de 16-20 passes",
+        instruccions: "Dempeus amb una mancuerna a cada mà. Fes un pas llarg endavant i flexiona els genolls fins que la cama del darrere gairebé toqui el terra. Impulsa't cap amunt i endavant per enllaçar el pas amb la cama contrària. Manten el tronc dret.",
+        benefici_salut: "Desenvolupa la força i la hipertròfia dels quàdriceps, isquiocrurals i glutis. Millora l'equilibri dinàmic i l'estabilitat de l'àrea lumbopèlvica.",
+        translations: {
+            ca: { nom: "Estocades en moviment", instruccions: "Dempeus amb una mancuerna a cada mà. Fes un pas llarg endavant i flexiona els genolls fins que la cama del darrere gairebé toqui el terra. Impulsa't cap amunt i endavant per enllaçar el pas amb la cama contrària. Manten el tronc dret.", benefici: "Desenvolupa la força i la hipertròfia dels quàdriceps, isquiocrurals i glutis. Millora l'equilibri dinàmic i l'estabilitat de l'àrea lumbopèlvica." },
+            es: { nom: "Zancadas en movimiento", instruccions: "De pie con una mancuerna en cada mano. Da un paso largo hacia adelante y flexiona las rodillas hasta que la pierna trasera casi toque el suelo. Impúlsate hacia arriba y hacia adelante para enlazar el paso con la pierna contraria. Mantén el tronco recto.", benefici: "Desarrolla la fuerza y la hipertrofia de los cuádriceps, isquiotibiales y glúteos. Mejora el equilibrio dinámico y la estabilidad del área lumbopélvica." },
+            en: { nom: "Walking Lunges", instruccions: "Standing with a dumbbell in each hand. Take a long step forward and bend your knees until the back leg almost touches the ground. Push yourself up and forward to link the step with the opposite leg. Keep your torso straight.", benefici: "Develops strength and hypertrophy of the quadriceps, hamstrings, and glutes. Improves dynamic balance and lumbopelvic stability." }
+        }
+    },
     // --- EMPENTA (PIT/ESPATLLES/TRÍCEPS) ---
     {
         id: "empenta-01",
@@ -270,7 +287,7 @@ const CATALEG_EXERCICIS = [
         equipament: "Banqueta, Peses",
         materials: ["banqueta", "peses"],
         repeticions_suggerides: "3 sèries de 12-15 repeticions",
-        instruccions: "Estirat a la banqueta with les peses sobre el pit. Obre els braços lateralment amb una lleugera flexió de colzes (com si abraçessis un arbre) fins a sentir l'estirament al pectoral. Torna a la posició inicial usant la força del pit.",
+        instruccions: "Estirat a la banqueta amb les peses sobre el pit. Obre els braços lateralment amb una lleugera flexió de colzes (com si abraçessis un arbre) fins a sentir l'estirament al pectoral. Torna a la posició inicial usant la força del pit.",
         benefici_salut: "Millora la flexibilitat pectoral i aïlla el múscul per a un desenvolupament més harmònic.",
         translations: {
             ca: { nom: "Obertures de pit a la banqueta", instruccions: "Estirat a la banqueta amb les peses sobre el pit. Obre els braços lateralment amb una lleugera flexió de colzes fins a sentir l'estirament al pectoral. Torna a la posició inicial usant la força del pit.", benefici: "Millora la flexibilitat pectoral i aïlla el múscul per a un desenvolupament més harmònic." },
@@ -287,7 +304,7 @@ const CATALEG_EXERCICIS = [
         equipament: "Banqueta",
         materials: ["banqueta", "pes_corporal"],
         repeticions_suggerides: "3 sèries de 12-15 repeticions",
-        instruccions: "Col·loca les mans a la banqueta i els peus a terra, formant una línia recta amb el cos. Baixa le pit cap a la banqueta i empeny amb força per tornar a dalt. Mantén le core activat en tot moment.",
+        instruccions: "Col·loca les mans a la banqueta i els peus a terra, formant una línia recta amb el cos. Baixa el pit cap a la banqueta i empeny amb força per tornar a dalt. Mantén el core activat en tot moment.",
         benefici_salut: "Versió pedagògica de les flexions que posa èmfasi en la part inferior del pectoral i facilita l'aprenentatge de la tècnica correcta.",
         translations: {
             ca: { nom: "Flexions inclinades (mans a banqueta)", instruccions: "Col·loca les mans a la banqueta i els peus a terra, formant una línia recta amb el cos. Baixa el pit cap a la banqueta i empeny amb força per tornar a dalt. Mantén el core activat en tot moment.", benefici: "Versió pedagògica de les flexions que posa èmfasi en la part inferior del pectoral i facilita l'aprenentatge de la tècnica correcta." },
@@ -338,7 +355,7 @@ const CATALEG_EXERCICIS = [
         equipament: "Banqueta",
         materials: ["banqueta", "pes_corporal"],
         repeticions_suggerides: "3 sèries de 12 repeticions",
-        instruccions: "D'esquena a la banqueta, recolza les mans a la vora. Amb les cames esteses (o flexionades per facilitar), baixa le cos flexionant els colzes cap enrere i puja fent força exclusivament amb els tríceps.",
+        instruccions: "D'esquena a la banqueta, recolza les mans a la vora. Amb les cames esteses (o flexionades per facilitar), baixa el cos flexionant els colzes cap enrere i puja fent força exclusivament amb els tríceps.",
         benefici_salut: "Exercici de pes corporal d'alta eficàcia per al desenvolupament de la part posterior del braç i la força de les articulacions del colze.",
         translations: {
             ca: { nom: "Fons de tríceps a la banqueta", instruccions: "D'esquena a la banqueta, recolza les mans a la vora. Amb les cames esteses o flexionades, baixa el cos flexionant els colzes cap enrere i puja fent força exclusivament amb els tríceps.", benefici: "Exercici de pes corporal d'alta eficàcia per al desenvolupament de la part posterior del braç i la força de les articulacions del colze." },
@@ -410,7 +427,7 @@ const CATALEG_EXERCICIS = [
         tipus: "comptatge",
         opcions_comptatge: [100, 200, 300, 500],
         repeticions_suggerides: "Objectiu: 250 remades a ritme constant",
-        instruccions: "Empeny fort amb les cames primer, inclina le tors lleugerament enrere i acaba estirant le manillar cap al teu abdomen. Torna els braços, inclina le tors endavant i flexiona genolls per repetir.",
+        instruccions: "Empeny fort amb les cames primer, inclina el tors lleugerament enrere i acaba estirant el manillar cap al teu abdomen. Torna els braços, inclina el tors endavant i flexiona genolls per repetir.",
         benefici_salut: "Treball cardiovascular d'alt impacte metabòlic que implica el 85% dels músculs del cos, millorant la capacitat aeròbica i la resistència muscular.",
         translations: {
             ca: { nom: "Màquina de rem", instruccions: "Empeny fort amb les cames primer, inclina el tors lleugerament enrere i acaba estirant el manillar cap al teu abdomen. Torna els braços, inclina el tors endavant i flexiona genolls per repetir.", benefici: "Treball cardiovascular d'alt impacte metabòlic que implica el 85% dels músculs del cos, millorant la capacitat aeròbica i la resistència muscular." },
@@ -427,7 +444,7 @@ const CATALEG_EXERCICIS = [
         equipament: "Banqueta, Peses",
         materials: ["banqueta", "peses"],
         repeticions_suggerides: "3 sèries de 12 repeticions per costat",
-        instruccions: "Recolza un genoll i la mà del mateix costat a la banqueta. Amb l'altra mà, estira la pesa cap al maluc, mantenint l'esquena paral·lela a terra i evitant rotar le tors.",
+        instruccions: "Recolza un genoll i la mà del mateix costat a la banqueta. Amb l'altra mà, estira la pesa cap al maluc, mantenint l'esquena paral·lela a terra i evitant rotar el tors.",
         benefici_salut: "Enforteix el dorsal ample i els músculs de l'esquena mitjana, millorant la postura i corregint desequilibris musculars.",
         translations: {
             ca: { nom: "Rem a una mà", instruccions: "Recolza un genoll i la mà del mateix costat a la banqueta. Amb l'altra mà, estira la pesa cap al maluc, mantenint l'esquena paral·lela a terra i evitant rotar el tors.", benefici: "Enforteix el dorsal ample i els músculs de l'esquena mitjana, millorant la postura i corregint desequilibris musculars." },
@@ -444,7 +461,7 @@ const CATALEG_EXERCICIS = [
         equipament: "Goma elàstica, Punt fix",
         materials: ["gomes"],
         repeticions_suggerides: "3 sèries de 15-20 repeticions",
-        instruccions: "Ancori la goma a un punt fix a l'alçada del pit. Dret, amb els genolls relaxats, estira els extrems de la goma cap a tu, portant els colzes enrere i ajuntant les escàpules.",
+        instruccions: "Ancora la goma a un punt fix a l'alçada del pit. Dret, amb els genolls relaxats, estira els extrems de la goma cap a tu, portant els colzes enrere i ajuntant les escàpules.",
         benefici_salut: "Treball excel·lent per a la salut escapular i la retracció de les espatlles, ideal per a persones que passen molt temps assegudes.",
         translations: {
             ca: { nom: "Rem amb gomes (punt fix)", instruccions: "Ancora la goma a un punt fix a l'alçada del pit. Dret, amb els genolls relaxats, estira els extrems de la goma cap a tu, portant els colzes enrere i ajuntant les escàpules.", benefici: "Treball excel·lent per a la salut escapular i la retracció de les espatlles, ideal per a persones que passen molt temps assegudes." },
@@ -461,7 +478,7 @@ const CATALEG_EXERCICIS = [
         equipament: "Peses or Goma",
         materials: ["peses", "gomes"],
         repeticions_suggerides: "3 sèries de 12 repeticions",
-        instruccions: "Dret, amb els braços estirats i un pes a cada mà. Flexiona els colzes portant els pesos cap a les espatlles sense moure els braços superiors ni balancejar le cos.",
+        instruccions: "Dret, amb els braços estirats i un pes a cada mà. Flexiona els colzes portant els pesos cap a les espatlles sense moure els braços superiors ni balancejar el cos.",
         benefici_salut: "Desenvolupa la força del bíceps braquial i millora la capacitat de càrrega d'objectes en la vida quotidiana.",
         translations: {
             ca: { nom: "Curl de bíceps dempeus", instruccions: "Dret, amb els braços estirats i un pes a cada mà. Flexiona els colzes portant els pesos cap a les espatlles sense moure els braços superiors ni balancejar el cos.", benefici: "Desenvolupa la força del bíceps braquial i millora la capacitat de càrrega d'objectes en la vida quotidiana." },
@@ -479,7 +496,7 @@ const CATALEG_EXERCICIS = [
         materials: ["banqueta", "peses"],
         repeticions_suggerides: "3 sèries de 12 repeticions per braç",
         instruccions: "Assegut a la banqueta, recolza el colze a la cara interna de la cuixa del mateix costat. Realitza el curl sense permetre que el braç es desplaci. El focus és l'aïllament total.",
-        benefici_salut: "Elimina qualsevol possibilitat de 'trampa' amb le cos, maximitzant el creixement i la força del pic del bíceps.",
+        benefici_salut: "Elimina qualsevol possibilitat de 'trampa' amb el cos, maximitzant el creixement i la força del pic del bíceps.",
         translations: {
             ca: { nom: "Curl de bíceps concentrat", instruccions: "Assegut a la banqueta, recolza el colze a la cara interna de la cuixa del mateix costat. Realitza el curl sense permetre que el braç es desplaci. El focus és l'aïllament total.", benefici: "Elimina qualsevol possibilitat de 'trampa' amb el cos, maximitzant el creixement i la força del pic del bíceps." },
             es: { nom: "Curl de bíceps concentrado", instruccions: "Sentado en el banco, apoya el codo en la cara interna del muslo del mismo lado. Realiza el curl sin permitir que el brazo se desplace. El foco es el aislamiento total.", benefici: "Elimina cualquier posibilidad de 'trampa' con el cuerpo, maximizando el crecimiento y la fuerza del pico del bíceps." },
@@ -524,7 +541,7 @@ const CATALEG_EXERCICIS = [
         id: "traccio-08",
         nom: "Elevacions laterals",
         imatge: "elevacions-laterals",
-        categoria: "Tracció i cardio",
+        categoria: "Empenta",
         complexitat: 2,
         equipament: "Pes (mancuerna)",
         materials: ["peses"],
@@ -535,23 +552,6 @@ const CATALEG_EXERCICIS = [
             ca: { nom: "Elevacions laterals a una mà", instruccions: "Sostén un pes en una mà amb el braç paral·lel al cos. Eleva el braç lateralment fins a arribar a un angle de 90 graus. Baixa lentament per tornar a la posició inicial. Completa la sèrie i repeteix amb l'altre braç.", benefici: "Aïllament eficaç del deltoide lateral, millorant l'amplada i l'estabilitat de l'espatlla." },
             es: { nom: "Elevaciones laterales a una mano", instruccions: "Sujeta un peso en una mano con el brazo paralelo al cuerpo. Eleva el brazo lateralmente hasta llegar a un ángulo de 90 grados. Baja lentamente para volver a la posición inicial. Completa la serie y repite con el otro brazo.", benefici: "Aislamiento eficaz del deltoide lateral, mejorando la amplitud y la estabilidad del hombro." },
             en: { nom: "One-Arm Lateral Raise", instruccions: "Hold a weight in one hand with your arm parallel to your body. Raise your arm laterally until reaching a 90-degree angle. Lower slowly to return to the starting position. Complete the set and repeat with the other arm.", benefici: "Effective isolation of the lateral deltoid, improving shoulder width and stability." }
-        }
-    },
-    {
-        id: "traccio-09",
-        nom: "Rem invertit (per a tracció pura)",
-        imatge: "rem-invertit-per-a-traccio-pura",
-        categoria: "Tracció",
-        complexitat: 2,
-        equipament: "Màquina de rem",
-        materials: ["rem"],
-        repeticions_suggerides: "3 sèries de 15 repeticions",
-        instruccions: "Assegut a la màquina de rem, agafa el mànec. En lloc de fer el moviment de cames, manté-les fixes i centra't només a portar el mànec cap al pit amb els colzes ben oberts.",
-        benefici_salut: "Aïlla la musculatura de l'esquena superior, corregint la postura \"encorbada\" de qui porta motxilla o passa hores al PC.",
-        translations: {
-            ca: { nom: "Rem invertit (per a tracció pura)", instruccions: "Assegut a la màquina de rem, agafa el mànec. En lloc de fer el moviment de cames, manté-les fixes i centra't només a portar el mànec cap al pit amb els colzes ben oberts.", benefici: "Aïlla la musculatura de l'esquena superior, corregint la postura 'encorbada' de qui porta motxilla o passa hores al PC." },
-            es: { nom: "Remo invertido (para tracción pura)", instruccions: "Sentado en la máquina de remo, coge el manillar. En lugar de hacer el movimiento de piernas, mantenlas fijas y céntrate solo en llevar el manillar hacia el pecho con los codos bien abiertos.", benefici: "Aísla la musculatura de la espalda superior, corrigiendo la postura 'encorvada' de quien lleva mochila o pasa horas en el PC." },
-            en: { nom: "Inverted Row (pure pull)", instruccions: "Seated on the rowing machine, grab the handle. Instead of using your legs, keep them fixed and focus only on pulling the handle towards your chest with your elbows wide open.", benefici: "Isolates the upper back musculature, correcting the 'hunched' posture of backpackers or desk workers." }
         }
     },
     {
@@ -582,10 +582,10 @@ const CATALEG_EXERCICIS = [
         equipament: "Terra (estoreta)",
         materials: ["pes_corporal"],
         repeticions_suggerides: "3 sèries de 45-60 segons",
-        instruccions: "Recolza't sobre els avantbraços i la punta dels peus. Mantén le cos en una línia recta, sense que le maluc s'enfonsi ni pugi massa. Prem fort l'abdomen i els glutis.",
+        instruccions: "Recolza't sobre els avantbraços i la punta dels peus. Mantén el cos en una línia recta, sense que el maluc s'enfonsi ni pugi massa. Prem fort l'abdomen i els glutis.",
         benefici_salut: "Millora l'estabilitat de la columna, prevé dolors d'esquena i enforteix tota la musculatura profunda del tronc.",
         translations: {
-            ca: { nom: "Planxa abdominal", instruccions: "Recolza't sobre els avantbraços i la punta dels peus. Mantén le cos en una línia recta, sense que le maluc s'enfonsi ni pugi massa. Prem fort l'abdomen i els glutis.", benefici: "Millora l'estabilitat de la columna, prevé dolors d'esquena i enforteix tota la musculatura profunda del tronc." },
+            ca: { nom: "Planxa abdominal", instruccions: "Recolza't sobre els avantbraços i la punta dels peus. Mantén el cos en una línia recta, sense que el maluc s'enfonsi ni pugi massa. Prem fort l'abdomen i els glutis.", benefici: "Millora l'estabilitat de la columna, prevé dolors d'esquena i enforteix tota la musculatura profunda del tronc." },
             es: { nom: "Plancha abdominal", instruccions: "Apóyate sobre los antebrazos y las puntas de los pies. Mantén el cuerpo en una línea recta, sin que la cadera se hunda ni suba demasiado. Aprieta fuerte el abdomen y los glúteos.", benefici: "Mejora la estabilidad de la columna, previene dolores de espalda y fortalece toda la musculatura profunda del tronco." },
             en: { nom: "Abdominal Plank", instruccions: "Support yourself on your forearms and toes. Keep your body in a straight line, without your hips sagging or rising too much. Squeeze your abdomen and glutes hard.", benefici: "Improves spinal stability, prevents back pain, and strengthens the entire deep core musculature." }
         }
@@ -599,7 +599,7 @@ const CATALEG_EXERCICIS = [
         equipament: "Pesa (mancuerna)",
         materials: ["peses", "pes_corporal"],
         repeticions_suggerides: "3 sèries de 20 girs",
-        instruccions: "Assegut amb els genolls flexionats i els talons lleugerament elevats. Sosté una pesa amb les dues mans i gira le tors d'un costat a l'altre, tocant gairebé terra amb la pesa en cada rotació.",
+        instruccions: "Assegut amb els genolls flexionats i els talons lleugerament elevats. Sosté una pesa amb les dues mans i gira el tors d'un costat a l'altre, tocant gairebé terra amb la pesa en cada rotació.",
         benefici_salut: "Treballa els oblics i la capacitat de rotació del tronc, essencial per a la funcionalitat esportiva.",
         translations: {
             ca: { nom: "Gir rus amb pesa", instruccions: "Assegut amb els genolls flexionats i els talons lleugerament elevats. Sosté una pesa amb les dues mans i gira el tors d'un costat a l'altre, tocant gairebé terra amb la pesa en cada rotació.", benefici: "Treballa els oblics i la capacitat de rotació del tronc, essencial per a la funcionalitat esportiva." },
@@ -633,7 +633,7 @@ const CATALEG_EXERCICIS = [
         equipament: "Goma elàstica, Punt fix",
         materials: ["gomes"],
         repeticions_suggerides: "3 sèries de 12 repeticions per costat",
-        instruccions: "Ancori la goma en un punt alt lateralment. Amb les dues mans, estira la goma en diagonal cap avall fins al maluc contrari, rotant le tors i els peus de manera coordinada.",
+        instruccions: "Ancora la goma en un punt alt lateralment. Amb les dues mans, estira la goma en diagonal cap avall fins al maluc contrari, rotant el tors i els peus de manera coordinada.",
         benefici_salut: "Potència la transmissió de forces entre el tren inferior i superior a través del core en moviments de rotació.",
         translations: {
             ca: { nom: "Woodchopper amb gomes", instruccions: "Ancora la goma en un punt alt lateralment. Amb les dues mans, estira la goma en diagonal cap avall fins al maluc contrari, rotant el tors i els peus de manera coordinada.", benefici: "Potència la transmissió de forces entre el tren inferior i superior a través del core en moviments de rotació." },
@@ -668,9 +668,9 @@ const CATALEG_EXERCICIS = [
         materials: ["pes_corporal"],
         repeticions_suggerides: "3 sèries de 15 repeticions",
         instruccions: "Estirat cap per avall. Eleva simultàniament braços i cames uns centímetres de terra, contraient tota la cadena posterior (erectors espinals i glutis). Mantén la mirada a terra.",
-        benefici_salut: "Vital per a la musculatura extensora de l'esquena, compensant el temps d'assegut i millorant l'erecció postural.",
+        benefici_salut: "Vital per a la musculatura extensora de l'esquena, compensant el temps d'assegut i millorant l'higiene postural.",
         translations: {
-            ca: { nom: "Superman a terra", instruccions: "Estirat cap per avall. Eleva simultàniament braços i cames uns centímetres de terra, contraient tota la cadena posterior. Mantén la mirada a terra.", benefici: "Vital per a la musculatura extensora de l'esquena, compensant el temps d'assegut i millorant l'erecció postural." },
+            ca: { nom: "Superman a terra", instruccions: "Estirat cap per avall. Eleva simultàniament braços i cames uns centímetres de terra, contraient tota la cadena posterior. Mantén la mirada a terra.", benefici: "Vital per a la musculatura extensora de l'esquena, compensant el temps d'assegut i millorant l'higiene postural." },
             es: { nom: "Superman en el suelo", instruccions: "Tumbado boca abajo. Eleva simultáneamente brazos y piernas unos centímetros del suelo, contrayendo toda la cadena posterior. Mantén la mirada en el suelo.", benefici: "Vital para la musculatura extensora de la espalda, compensando el tiempo sentado y mejorando la erección postural." },
             en: { nom: "Superman", instruccions: "Lie face down. Simultaneously raise your arms and legs a few inches off the floor, contracting your entire posterior chain. Keep your gaze on the floor.", benefici: "Vital for the back extensor musculature, compensating for sitting time and improving upright posture." }
         }
@@ -685,7 +685,7 @@ const CATALEG_EXERCICIS = [
         materials: ["gomes"],
         repeticions_suggerides: "3 sèries de 30 segons per costat",
         instruccions: "Dret, de costat al punt d'ancoratge de la goma. Subjecta la goma amb les dues mans davant del pit i estira-la endavant fins a bloquejar braços. Lluita contra la goma que t'estira lateralment cap al punt fix.",
-        benefici_salut: "Exercici d'anti-rotació que enforteix els oblics i le core profund per protegir la columna de forces laterals inesperades.",
+        benefici_salut: "Exercici d'anti-rotació que enforteix els oblics i el core profund per protegir la columna de forces laterals inesperades.",
         translations: {
             ca: { nom: "Press Pallof amb gomes", instruccions: "Dret, de costat al punt d'ancoratge de la goma. Subjecta la goma amb les dues mans davant del pit i estira-la endavant fins a bloquejar braços. Lluita contra la goma que t'estira lateralment.", benefici: "Exercici d'anti-rotació que enforteix els oblics i el core profund per protegir la columna de forces laterals inesperades." },
             es: { nom: "Press Pallof con gomas", instruccions: "De pie, de lado al punto de anclaje de la goma. Sujeta la goma con ambas manos frente al pecho y estírala hacia adelante hasta bloquear los brazos. Lucha contra la goma que tira de ti lateralmente.", benefici: "Ejercicio de anti-rotación que fortalece los oblicuos y el core profundo para proteger la columna de fuerzas laterales inesperadas." },
@@ -732,15 +732,32 @@ const CATALEG_EXERCICIS = [
         imatge: "jefferson-curl",
         categoria: "Core",
         complexitat: 4,
-        equipament: "Banqueta i una pesa lleugera",
-        materials: ["banqueta", "peses"],
+        equipament: "Una pesa lleugera",
+        materials: ["peses"],
         repeticions_suggerides: "3 sèries de 5-8 repeticions molt lentes i controlades",
-        instruccions: "Posa't dempeus sobre la banqueta. Amb les cames totalment rectes, comença a enrotllar la columna vèrtebra per vèrtebra, començant pel coll, baixant el pes cap als peus (i per sota del nivell de la banqueta si pots). Puja de la mateixa manera, desenrotllant-te lentament.",
+        instruccions: "Posa't dempeus. Amb les cames totalment rectes, comença a enrotllar la columna vèrtebra per vèrtebra, començant pel coll, baixant el pes cap als peus. Puja de la mateixa manera, desenrotllant-te lentament.",
         benefici_salut: "Decompressió de la columna i flexibilitat activa dels isquiotibials. Prepara l'esquena per aguantar la tensió constant de les pujades pronunciades.",
         translations: {
-            ca: { nom: "Jefferson Curl", instruccions: "Posa't dempeus sobre la banqueta. Amb les cames totalment rectes, comença a enrotllar la columna vèrtebra per vèrtebra baixant el pes cap als peus. Puja de la mateixa manera, desenrotllant-te lentament.", benefici: "Decompressió de la columna i flexibilitat activa dels isquiotibials. Prepara l'esquena per aguantar la tensió constant de les pujades pronunciades." },
-            es: { nom: "Curl Jefferson", instruccions: "Ponte de pie sobre el banco. Con las piernas totalmente rectas, empieza a enrollar la columna vértebra por vértebra bajando el peso hacia los pies. Sube de la misma manera, desenrollándote lentamente.", benefici: "Descompresión de la columna y flexibilidad activa de los isquiotibiales. Prepara la espalda para aguantar la tensión constante de las subidas pronunciadas." },
-            en: { nom: "Jefferson Curl", instruccions: "Stand on the bench. With your legs completely straight, begin to roll your spine down vertebra by vertebra, lowering the weight towards your feet. Rise in the same manner, unrolling slowly.", benefici: "Spinal decompression and active hamstring flexibility. Prepares the back to withstand the constant tension of steep climbs." }
+            ca: { nom: "Jefferson Curl", instruccions: "Posa't dempeus. Amb les cames totalment rectes, comença a enrotllar la columna vèrtebra per vèrtebra baixant el pes cap als peus. Puja de la mateixa manera, desenrotllant-te lentament.", benefici: "Decompressió de la columna i flexibilitat activa dels isquiotibials. Prepara l'esquena per aguantar la tensió constant de les pujades pronunciades." },
+            es: { nom: "Curl Jefferson", instruccions: "Ponte de pie. Con las piernas totalmente rectas, empieza a enrollar la columna vértebra por vértebra bajando el peso hacia los pies. Sube de la misma manera, desenrollándote lentamente.", benefici: "Descompresión de la columna y flexibilidad activa de los isquiotibiales. Prepara la espalda para aguantar la tensión constante de las subidas pronunciadas." },
+            en: { nom: "Jefferson Curl", instruccions: "Stand up. With your legs completely straight, begin to roll your spine down vertebra by vertebra, lowering the weight towards your feet. Rise in the same manner, unrolling slowly.", benefici: "Spinal decompression and active hamstring flexibility. Prepares the back to withstand the constant tension of steep climbs." }
+        }
+    },
+    {
+        id: "core-11",
+        nom: "Tocs a l'espatlla en planxa",
+        imatge: "tocs-a-espatlla-en-planxa",
+        categoria: "Core",
+        complexitat: 3,
+        equipament: "Terra (estoreta)",
+        materials: ["pes_corporal"],
+        repeticions_suggerides: "3 sèries de 20 segons",
+        instruccions: "En posició de planxa alta amb braços estesos, aixeca una mà per tocar l'espatlla contrària de manera controlada. Mantén el maluc ferm i sense oscil·lacions. Canvia de costat. Mantenir la pelvis completament paral·lela al terra sense que bansi demana una gran força d'anti-rotació.",
+        benefici_salut: "Desenvolupa l'estabilitat i la força de l'espatlla (grup rotador), millora el control dels abdominals profunds (core) i treballa la coordinació neuromuscular interhemisfèrica.",
+        translations: {
+            ca: { nom: "Tocs a l'espatlla en planxa", instruccions: "En posició de planxa alta amb braços estesos, aixeca una mà per tocar l'espatlla contrària de manera controlada. Mantén el maluc ferm i sense oscil·lacions. Canvia de costat. Mantenir la pelvis completament paral·lela al terra sense que bansi demana una gran força d'anti-rotació.", benefici: "Desenvolupa l'estabilitat i la força de l'espatlla (grup rotador), millora el control dels abdominals profunds (core) i treballa la coordinació neuromuscular interhemisfèrica." },
+            es: { nom: "Toques de hombro en plancha", instruccions: "En posición de plancha alta con brazos extendidos, levanta una mano para tocar el hombro contrario de forma controlada. Mantén la cadera firme y sin oscilaciones. Cambia de lado. Mantener la pelvis completamente paralela al suelo sin que se balancee exige una gran fuerza de anti-rotación.", benefici: "Desarrolla la estabilidad y la fuerza del hombro (grupo rotador), mejora el control de los abdominales profundos (core) y trabaja la coordinación neuromuscular interhemisférica." },
+            en: { nom: "Plank Shoulder Taps", instruccions: "In a high plank position with straight arms, lift one hand to touch the opposite shoulder in a controlled manner. Keep your hips steady without swaying. Switch sides. Keeping the pelvis completely parallel to the floor without rocking requires great anti-rotational strength.", benefici: "Develops shoulder stability and strength (rotator cuff), improves control of deep abdominals (core), and works on interhemispheric neuromuscular coordination." }
         }
     },
     {

@@ -452,6 +452,10 @@ h1, h2, h3 {
     letter-spacing: 0.05em;
 }
 
+.mobile-category {
+    display: none;
+}
+
 .exercise-card h3 {
     font-size: 1.4rem;
     margin-bottom: 1rem;
@@ -625,8 +629,25 @@ h1, h2, h3 {
         width: fit-content;
     }
 
-    .exercise-card .benefit-box, .exercise-card .category-tag, .exercise-card .btn-execute {
+    .exercise-card .benefit-box, .exercise-card .desktop-category, .exercise-card .btn-execute {
         display: none;
+    }
+
+    .mobile-meta-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+    
+    .mobile-meta-row .complexity-container {
+        margin-bottom: 0;
+    }
+
+    .mobile-category {
+        display: inline-block !important;
+        margin-bottom: 0;
     }
 
     /* Botó de Play Ràpid - Alineat Bottom-Right */

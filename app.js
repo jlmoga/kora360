@@ -379,10 +379,19 @@ document.addEventListener('DOMContentLoaded', () => {
         // Parsejar repeticions suggerides (Ex: "3 sèries de 12-15 repeticions")
         // Nota: Les repeticions suggerides a exercicis.js són en català, per ara les parsegem així.
         const setsMatch = exercise.repeticions_suggerides.match(/(\d+)\s+sèries/);
-        const repsMatch = exercise.repeticions_suggerides.match(/(\d+)-?(\d+)?\s+repeticions/);
+        const repsMatch = exercise.repeticions_suggerides.match(/(\d+)-?(\d+)?\s+(repeticions|segons?|minuts?|passos|passes|girs?)/i);
         
         let baseSets = setsMatch ? parseInt(setsMatch[1]) : 3;
         let baseReps = repsMatch ? parseInt(repsMatch[1]) : 12;
+        let unitKey = 'word_reps';
+        
+        if (repsMatch && repsMatch[3]) {
+            const u = repsMatch[3].toLowerCase();
+            if (u.startsWith('segon')) unitKey = 'word_seconds';
+            else if (u.startsWith('minut')) unitKey = 'word_minutes';
+            else if (u.startsWith('gir')) unitKey = 'word_twists';
+            else if (u.startsWith('pas')) unitKey = 'word_steps';
+        }
 
         let finalSets = baseSets + m.sets;
         let finalReps = Math.round(baseReps * m.reps);
@@ -401,6 +410,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return {
             sets: finalSets,
             reps: finalReps,
+            unitKey: unitKey,
             extra: finalWeight,
             isCount: false
         };
@@ -534,7 +544,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const item = isRoutine ? currentRoutineExecution.items[currentRoutineExecution.currentIndex] : { id: exId, set: 1 };
         const exItem = isRoutine ? CATALEG_EXERCICIS.find(e => e.id === item.id) : ex;
         
-        const goalText = goal.isCount ? `${goal.reps}${goal.extra}` : `${t('series_label', { n: item.set, total: goal.sets })} ${t('reps_label', { n: goal.reps, extra: goal.extra })}`;
+        const unitTrans = goal.unitKey ? t(goal.unitKey) : t('word_reps');
+        const goalText = goal.isCount ? `${goal.reps}${goal.extra}` : `${t('series_label', { n: item.set, total: goal.sets })} ${t('reps_label', { n: goal.reps, unit: unitTrans, extra: goal.extra })}`;
         const content_ex = getExerciseContent(ex);
 
         const nomFitxer = getExerciseImage(ex);
@@ -1181,9 +1192,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 <img src="${nomFitxer}" alt="${content.nom}" class="card-img" 
                      onerror="this.onerror=null;this.src='https://placehold.co/400x200/111/4facfe?text=${encodeURIComponent(content.nom)}'">
                 <div class="card-content">
-                    <span class="category-tag">${t('cat_' + ex.categoria)}</span>
+                    <span class="category-tag desktop-category">${t('cat_' + ex.categoria)}</span>
                     <h3>${content.nom}</h3>
-                    ${getComplexityStars(ex.complexitat || 3)}
+                    <div class="mobile-meta-row">
+                        ${getComplexityStars(ex.complexitat || 3)}
+                        <span class="category-tag mobile-category">${t('cat_' + ex.categoria)}</span>
+                    </div>
                     <span class="rep-tag">${translateReps(ex.repeticions_suggerides)}</span>
                     <p class="instructions">${content.instruccions}</p>
                     <div class="benefit-box">
