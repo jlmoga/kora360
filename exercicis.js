@@ -243,23 +243,6 @@ const CATALEG_EXERCICIS = [
             en: { nom: "Walking Lunges with Weights", instruccions: "Take a long step forward and bend both knees until the back one almost touches the ground. Push off to advance the back leg and continue the movement.", benefici: "Develops brutal concentric and eccentric strength, essential for steep climbs and controlling descents." }
         }
     },
-    {
-        id: "cames-15",
-        nom: "Estocades en moviment",
-        imatge: "estocades-en-moviment",
-        categoria: "Cames",
-        complexitat: 5,
-        equipament: "Peses",
-        materials: ["peses"],
-        repeticions_suggerides: "3 sèries de 16-20 passes",
-        instruccions: "Dempeus amb una mancuerna a cada mà. Fes un pas llarg endavant i flexiona els genolls fins que la cama del darrere gairebé toqui el terra. Impulsa't cap amunt i endavant per enllaçar el pas amb la cama contrària. Manten el tronc dret.",
-        benefici_salut: "Desenvolupa la força i la hipertròfia dels quàdriceps, isquiocrurals i glutis. Millora l'equilibri dinàmic i l'estabilitat de l'àrea lumbopèlvica.",
-        translations: {
-            ca: { nom: "Estocades en moviment", instruccions: "Dempeus amb una mancuerna a cada mà. Fes un pas llarg endavant i flexiona els genolls fins que la cama del darrere gairebé toqui el terra. Impulsa't cap amunt i endavant per enllaçar el pas amb la cama contrària. Manten el tronc dret.", benefici: "Desenvolupa la força i la hipertròfia dels quàdriceps, isquiocrurals i glutis. Millora l'equilibri dinàmic i l'estabilitat de l'àrea lumbopèlvica." },
-            es: { nom: "Zancadas en movimiento", instruccions: "De pie con una mancuerna en cada mano. Da un paso largo hacia adelante y flexiona las rodillas hasta que la pierna trasera casi toque el suelo. Impúlsate hacia arriba y hacia adelante para enlazar el paso con la pierna contraria. Mantén el tronco recto.", benefici: "Desarrolla la fuerza y la hipertrofia de los cuádriceps, isquiotibiales y glúteos. Mejora el equilibrio dinámico y la estabilidad del área lumbopélvica." },
-            en: { nom: "Walking Lunges", instruccions: "Standing with a dumbbell in each hand. Take a long step forward and bend your knees until the back leg almost touches the ground. Push yourself up and forward to link the step with the opposite leg. Keep your torso straight.", benefici: "Develops strength and hypertrophy of the quadriceps, hamstrings, and glutes. Improves dynamic balance and lumbopelvic stability." }
-        }
-    },
     // --- EMPENTA (PIT/ESPATLLES/TRÍCEPS) ---
     {
         id: "empenta-01",

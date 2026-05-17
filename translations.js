@@ -13,7 +13,7 @@ const I18N = {
         "filters_label": "Filtres",
         
         // Header
-        "app_title": "Kora 360. <span class=\"accent\">El teu gimnàs a casa</span>",
+        "app_title": "Kora 360<span class=\"desktop-only\">.</span><br class=\"mobile-br\"><span class=\"accent\">El teu gimnàs a casa</span>",
         "app_subtitle": "Explora el catàleg i crea la teva rutina ideal.",
         "filter_material_btn": "Filtrar per material <span class=\"arrow\">▾</span>",
         "material_available_label": "Material disponible:",
@@ -144,7 +144,7 @@ const I18N = {
         "filters_label": "Filtros",
         
         // Header
-        "app_title": "Kora 360. <span class=\"accent\">Tu gimnasio en casa</span>",
+        "app_title": "Kora 360<span class=\"desktop-only\">.</span><br class=\"mobile-br\"><span class=\"accent\">Tu gimnasio en casa</span>",
         "app_subtitle": "Explora el catálogo y crea tu rutina ideal.",
         "filter_material_btn": "Filtrar por material <span class=\"arrow\">▾</span>",
         "material_available_label": "Material disponible:",
@@ -275,7 +275,7 @@ const I18N = {
         "filters_label": "Filters",
         
         // Header
-        "app_title": "Kora 360. <span class=\"accent\">Your home gym</span>",
+        "app_title": "Kora 360<span class=\"desktop-only\">.</span><br class=\"mobile-br\"><span class=\"accent\">Your home gym</span>",
         "app_subtitle": "Explore the catalog and create your ideal routine.",
         "filter_material_btn": "Filter by material <span class=\"arrow\">▾</span>",
         "material_available_label": "Available material:",

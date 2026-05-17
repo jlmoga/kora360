@@ -94,6 +94,10 @@ body.modal-open {
     display: none !important;
 }
 
+.mobile-br {
+    display: none;
+}
+
 h1, h2, h3 {
     font-family: 'Outfit', sans-serif;
     letter-spacing: -0.02em;
@@ -575,8 +579,18 @@ h1, h2, h3 {
 }
 
 @media (max-width: 768px) {
+    .mobile-br {
+        display: block;
+    }
+    .desktop-only {
+        display: none !important;
+    }
     .main-header h1 {
         font-size: 2.5rem;
+        line-height: 1.1;
+    }
+    .main-header .subtitle {
+        display: none !important;
     }
     .nav-tab {
         font-size: 0.8rem;
