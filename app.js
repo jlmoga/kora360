@@ -349,16 +349,40 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- LÒGICA D'ADAPTACIÓ ---
     function getExecutionGoal(exercise) {
         const restName = t('rest_exercise_name');
-        if (exercise.nom === 'Descans' || exercise.nom === restName) {
-            return { sets: 1, reps: "60 s", extra: t('rest_goal_extra'), isCount: true };
+        
+        // 1. Coeficient d'Edat (F_edat)
+        let fAge = 1.0;
+        if (profile.age > 75) {
+            fAge = 0.70;
+        } else if (profile.age > 60) {
+            fAge = 0.85;
+        } else if (profile.age > 45) {
+            fAge = 0.95;
         }
+
+        // 2. Coeficient de Sexe i descans (F_sexe)
+        let fSexReps = profile.sex === 'dona' ? 1 : 0;
+        let fSexRest = profile.sex === 'dona' ? 0.85 : 1.0;
+
+        // --- CAS ESPECIAL: DESCANS ---
+        if (exercise.nom === 'Descans' || exercise.nom === restName) {
+            let ageRestFactor = profile.age > 60 ? 1.2 : 1.0;
+            let finalRestSeconds = Math.round(60 * fSexRest * ageRestFactor);
+            return { 
+                sets: 1, 
+                reps: `${finalRestSeconds} s`, 
+                extra: t('rest_goal_extra'), 
+                isCount: true 
+            };
+        }
+
         // Multiplicadors per nivell
         const multipliers = {
             'beginner': { reps: 0.8, weight: 0.5, sets: 0 },
             'intermediate': { reps: 1.0, weight: 0.7, sets: 0 },
             'advanced': { reps: 1.2, weight: 0.9, sets: 1 }
         };
-        const m = multipliers[profile.level];
+        const m = multipliers[profile.level] || multipliers['intermediate'];
 
         // --- CAS ESPECIAL: COMPTATGE (REM, ETC.) ---
         if (exercise.tipus === 'comptatge') {
@@ -367,17 +391,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 'intermediate': 300,
                 'advanced': 500
             };
+            let baseCount = comptatgeOpcions[profile.level] || 250;
+            let finalCount = Math.round(baseCount * fAge);
             return {
                 sets: 1,
-                reps: comptatgeOpcions[profile.level] || 250,
+                reps: finalCount,
                 extra: t('row_reps'),
                 isCount: true
             };
         }
 
         // --- CAS ESTÀNDARD: SÈRIES X REPS ---
-        // Parsejar repeticions suggerides (Ex: "3 sèries de 12-15 repeticions")
-        // Nota: Les repeticions suggerides a exercicis.js són en català, per ara les parsegem així.
         const setsMatch = exercise.repeticions_suggerides.match(/(\d+)\s+sèries/);
         const repsMatch = exercise.repeticions_suggerides.match(/(\d+)-?(\d+)?\s+(repeticions|segons?|minuts?|passos|passes|girs?)/i);
         
@@ -394,12 +418,24 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         let finalSets = baseSets + m.sets;
-        let finalReps = Math.round(baseReps * m.reps);
+        
+        // Capar a màxim 2 sèries si té més de 75 anys per evitar sobrecàrrega extrema
+        if (profile.age > 75) {
+            finalSets = Math.min(finalSets, 2);
+        }
+
+        let finalReps = Math.round(baseReps * m.reps * fAge);
+        
+        // Afegir repetició addicional per a dones en exercicis basats en repeticions estàndard
+        if (unitKey === 'word_reps') {
+            finalReps += fSexReps;
+        }
+
         let finalWeight = "";
 
         // Si l'exercici requereix peses, calculem el pes sugerit
         if (exercise.materials.includes('peses')) {
-            const calculatedWeight = Math.round(profile.maxWeight * m.weight);
+            const calculatedWeight = Math.round(profile.maxWeight * m.weight * fAge);
             finalWeight = t('weight_with', { n: calculatedWeight });
         } else if (exercise.materials.includes('gomes')) {
             const intensityKey = profile.level === 'beginner' ? 'rubber_light' : (profile.level === 'advanced' ? 'rubber_strong' : 'rubber_medium');

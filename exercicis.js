@@ -404,7 +404,7 @@ const CATALEG_EXERCICIS = [
         nom: "Màquina de rem",
         imatge: "maquina-de-rem",
         categoria: "Tracció",
-        complexitat: 5,
+        complexitat: 3,
         equipament: "Màquina de rem",
         materials: ["rem"],
         tipus: "comptatge",
