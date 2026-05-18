@@ -160,23 +160,6 @@
                     <form id="profileForm">
                         <div class="form-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
                             <div class="form-group">
-                                <label data-i18n="label_theme">Tema</label>
-                                <select id="pTheme">
-                                    <option value="dark" data-i18n="theme_dark">Fosc (Predeterminat)</option>
-                                    <option value="light" data-i18n="theme_light">Clar</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label data-i18n="label_lang">Idioma / Language</label>
-                                <select id="pLang">
-                                    <option value="ca">Català</option>
-                                    <option value="es">Español</option>
-                                    <option value="en">English</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-                            <div class="form-group">
                                 <label data-i18n="label_age">Edat</label>
                                 <input type="number" id="pAge" value="30" min="10" max="100">
                             </div>
@@ -211,12 +194,7 @@
                                 </label>
                             </div>
                         </div>
-                        <button type="submit" class="save-btn" style="width: 100%; margin-top: 2rem;"
-                            data-i18n="btn_save_profile">Guardar
-                            perfil</button>
-                    </form>
-
-                    <!-- Índex d'Intensitat Kora360 -->
+                    <!-- Índex d'Intensitat Kora360 (dins del formulari) -->
                     <div class="kora-index-container">
                         <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 2rem 0 1.5rem 0;">
                         <h3 class="kora-index-title" data-i18n="kora_index_title">Índex d'Intensitat Kora360</h3>
@@ -238,6 +216,25 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="form-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px dashed var(--border-color);">
+                        <div class="form-group">
+                            <label data-i18n="label_theme">Tema</label>
+                            <select id="pTheme">
+                                <option value="dark" data-i18n="theme_dark">Fosc (Predeterminat)</option>
+                                <option value="light" data-i18n="theme_light">Clar</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label data-i18n="label_lang">Idioma / Language</label>
+                            <select id="pLang">
+                                <option value="ca">Català</option>
+                                <option value="es">Español</option>
+                                <option value="en">English</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
                 </div>
             </div>
         </section>

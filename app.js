@@ -436,6 +436,36 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    function handleProfileChange() {
+        updateKoraIntensityIndex();
+        
+        const pThemeInput = document.getElementById('pTheme');
+        const pAgeInput = document.getElementById('pAge');
+        const pSexInput = document.getElementById('pSex');
+        const pLevelInput = document.getElementById('pLevel');
+        const pMaxWeightInput = document.getElementById('pMaxWeight');
+        const pLangInput = document.getElementById('pLang');
+        const pDefaultCircuitInput = document.getElementById('pDefaultCircuit');
+
+        if (!pThemeInput || !pAgeInput || !pSexInput || !pLevelInput || !pMaxWeightInput || !pLangInput || !pDefaultCircuitInput) return;
+
+        const newData = {
+            theme: pThemeInput.value,
+            age: parseInt(pAgeInput.value) || 30,
+            sex: pSexInput.value,
+            level: pLevelInput.value,
+            maxWeight: parseInt(pMaxWeightInput.value) || 10,
+            lang: pLangInput.value,
+            defaultCircuit: pDefaultCircuitInput.checked
+        };
+        
+        if (JSON.stringify(profile) !== JSON.stringify(newData)) {
+            saveProfile(newData);
+            applyTranslations();
+            updateDisplay();
+        }
+    }
+
     // --- LÒGICA D'ADAPTACIÓ ---
     function getExecutionGoal(exercise) {
         const restName = t('rest_exercise_name');
@@ -1414,37 +1444,28 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     profileForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const newData = {
-            theme: document.getElementById('pTheme').value,
-            age: parseInt(document.getElementById('pAge').value),
-            sex: document.getElementById('pSex').value,
-            level: document.getElementById('pLevel').value,
-            maxWeight: parseInt(document.getElementById('pMaxWeight').value),
-            lang: document.getElementById('pLang').value,
-            defaultCircuit: document.getElementById('pDefaultCircuit').checked
-        };
-        saveProfile(newData);
-        applyTranslations();
-        updateDisplay();
-        navTabs[0].click(); // Anar a explorar automàticament
+        e.preventDefault(); // Evitar recàrrega de pàgina si es prem Enter
     });
 
-    // Canvi de tema immediat en seleccionar
-    document.getElementById('pTheme').addEventListener('change', (e) => {
-        applyTheme(e.target.value);
-    });
-
-    // Associar esdeveniments per a l'actualització de l'Índex en temps real
+    // Associar esdeveniments per desar automàticament i actualitzar en temps real
+    const pThemeInput = document.getElementById('pTheme');
     const pAgeInput = document.getElementById('pAge');
     const pSexInput = document.getElementById('pSex');
     const pMaxWeightInput = document.getElementById('pMaxWeight');
     const pLevelInput = document.getElementById('pLevel');
+    const pLangInput = document.getElementById('pLang');
+    const pDefaultCircuitInput = document.getElementById('pDefaultCircuit');
 
-    if (pAgeInput) pAgeInput.addEventListener('input', updateKoraIntensityIndex);
-    if (pSexInput) pSexInput.addEventListener('change', updateKoraIntensityIndex);
-    if (pMaxWeightInput) pMaxWeightInput.addEventListener('input', updateKoraIntensityIndex);
-    if (pLevelInput) pLevelInput.addEventListener('change', updateKoraIntensityIndex);
+    if (pThemeInput) pThemeInput.addEventListener('change', (e) => {
+        applyTheme(e.target.value);
+        handleProfileChange();
+    });
+    if (pAgeInput) pAgeInput.addEventListener('input', handleProfileChange);
+    if (pSexInput) pSexInput.addEventListener('change', handleProfileChange);
+    if (pMaxWeightInput) pMaxWeightInput.addEventListener('input', handleProfileChange);
+    if (pLevelInput) pLevelInput.addEventListener('change', handleProfileChange);
+    if (pLangInput) pLangInput.addEventListener('change', handleProfileChange);
+    if (pDefaultCircuitInput) pDefaultCircuitInput.addEventListener('change', handleProfileChange);
 
     // Canvi de Pestanyes (Navegació)
     navTabs.forEach(tab => {

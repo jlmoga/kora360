@@ -1231,6 +1231,14 @@ h3 {
     display: none !important;
 }
 
+#profileSection {
+    padding-bottom: 0px !important;
+}
+
+#profileSection h2 {
+    margin-bottom: 0px !important;
+}
+
 .routines-header {
     display: flex;
     justify-content: space-between;
@@ -1737,6 +1745,16 @@ input:checked+.slider:before {
 }
 
 @media (max-width: 600px) {
+    .profile-card.page-card {
+        background: transparent !important;
+        border: none !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+        margin: 1rem auto !important;
+        backdrop-filter: none !important;
+    }
+
     #executionModal.modal {
         padding: 0 !important;
         align-items: stretch !important;
