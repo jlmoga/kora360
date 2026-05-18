@@ -2007,3 +2007,148 @@ input:checked+.slider:before {
 [data-theme="light"] .activity-stats {
     border-top-color: rgba(0, 0, 0, 0.05);
 }
+
+/* --- KORA360 INTENSITY INDEX STYLES --- */
+.kora-index-container {
+    animation: fadeIn 0.5s ease-out;
+    margin-top: 1rem;
+}
+
+.kora-index-title {
+    color: var(--primary) !important;
+    font-size: 1.25rem !important;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 0.25rem !important;
+    font-family: 'Outfit', sans-serif;
+}
+
+.kora-index-subtitle {
+    text-align: center;
+    font-size: 0.85rem !important;
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem !important;
+}
+
+.kora-index-box {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: 1.5rem;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--border-color);
+    padding: 1.5rem;
+    border-radius: 20px;
+    transition: var(--transition-smooth);
+}
+
+.profile-card:hover .kora-index-box {
+    border-color: var(--primary);
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.kora-gauge-wrapper {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.kora-gauge-svg {
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+}
+
+.kora-gauge-bg {
+    fill: none;
+    stroke: rgba(255, 255, 255, 0.08);
+    stroke-width: 8px;
+}
+
+.kora-gauge-progress {
+    fill: none;
+    stroke-width: 8px;
+    stroke-linecap: round;
+    transition: stroke-dashoffset 0.5s cubic-bezier(0.4, 0, 0.2, 1), stroke 0.5s ease;
+}
+
+.kora-gauge-value {
+    position: absolute;
+    font-size: 1.25rem;
+    font-weight: 800;
+    font-family: 'Outfit', sans-serif;
+    color: var(--text-primary);
+}
+
+.kora-index-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.kora-index-badge {
+    align-self: flex-start;
+    padding: 0.35rem 0.8rem;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: var(--transition-smooth);
+}
+
+/* Badge colors */
+.kora-index-badge.mobility {
+    background: rgba(76, 175, 80, 0.1);
+    color: #81c784;
+    border: 1px solid rgba(76, 175, 80, 0.2);
+}
+
+.kora-index-badge.conditioning {
+    background: rgba(77, 182, 172, 0.1);
+    color: #4db6ac;
+    border: 1px solid rgba(77, 182, 172, 0.2);
+}
+
+.kora-index-badge.toning {
+    background: rgba(79, 172, 254, 0.1);
+    color: #4facfe;
+    border: 1px solid rgba(79, 172, 254, 0.2);
+}
+
+.kora-index-badge.active {
+    background: rgba(255, 183, 77, 0.1);
+    color: #ffb74d;
+    border: 1px solid rgba(255, 183, 77, 0.2);
+}
+
+.kora-index-badge.max {
+    background: rgba(255, 82, 82, 0.1);
+    color: #ff5252;
+    border: 1px solid rgba(255, 82, 82, 0.2);
+}
+
+.kora-index-desc {
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin: 0;
+    transition: var(--transition-smooth);
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+    .kora-index-box {
+        grid-template-columns: 1fr;
+        justify-items: center;
+        text-align: center;
+        gap: 1rem;
+    }
+    
+    .kora-index-badge {
+        align-self: center;
+    }
+}

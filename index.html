@@ -215,6 +215,29 @@
                             data-i18n="btn_save_profile">Guardar
                             perfil</button>
                     </form>
+
+                    <!-- Índex d'Intensitat Kora360 -->
+                    <div class="kora-index-container">
+                        <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 2rem 0 1.5rem 0;">
+                        <h3 class="kora-index-title" data-i18n="kora_index_title">Índex d'Intensitat Kora360</h3>
+                        <p class="subtitle kora-index-subtitle" data-i18n="kora_index_subtitle">Estimació de la complexitat i sobrecàrrega dels teus exercicis basat en salut</p>
+                        
+                        <div class="kora-index-box">
+                            <!-- Gauge radial interactiu -->
+                            <div class="kora-gauge-wrapper">
+                                <svg class="kora-gauge-svg" viewBox="0 0 100 100">
+                                    <circle class="kora-gauge-bg" cx="50" cy="50" r="40"></circle>
+                                    <circle class="kora-gauge-progress" id="koraGaugeProgress" cx="50" cy="50" r="40" stroke-dasharray="251.2" stroke-dashoffset="251.2"></circle>
+                                </svg>
+                                <div class="kora-gauge-value" id="koraGaugeVal">0%</div>
+                            </div>
+                            
+                            <div class="kora-index-info">
+                                <div class="kora-index-badge" id="koraIndexBadge">...</div>
+                                <p class="kora-index-desc" id="koraIndexDesc">...</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>

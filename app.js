@@ -189,6 +189,8 @@ document.addEventListener('DOMContentLoaded', () => {
             renderRoutines();
         } else if (view === 'activity') {
             renderActivityLog();
+        } else if (view === 'profile') {
+            updateKoraIntensityIndex();
         }
 
         // Guardar a l'historial
@@ -326,6 +328,7 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('pDefaultCircuit').checked = profile.defaultCircuit || false;
             
             if (profile.theme) applyTheme(profile.theme);
+            updateKoraIntensityIndex();
             return true;
         }
         return false;
@@ -343,6 +346,93 @@ document.addEventListener('DOMContentLoaded', () => {
         const metaThemeColor = document.querySelector('meta[name="theme-color"]');
         if (metaThemeColor) {
             metaThemeColor.setAttribute('content', theme === 'light' ? '#3D5F90' : '#111318');
+        }
+    }
+
+    // --- CÀLCUL DE L'ÍNDEX D'INTENSITAT DE SALUT KORA360 ---
+    function updateKoraIntensityIndex() {
+        const pAgeInput = document.getElementById('pAge');
+        const pSexInput = document.getElementById('pSex');
+        const pMaxWeightInput = document.getElementById('pMaxWeight');
+        const pLevelInput = document.getElementById('pLevel');
+
+        if (!pAgeInput || !pSexInput || !pMaxWeightInput || !pLevelInput) return;
+
+        const age = parseInt(pAgeInput.value) || 30;
+        const sex = pSexInput.value;
+        const maxWeight = parseFloat(pMaxWeightInput.value) || 10;
+        const level = pLevelInput.value;
+
+        // 1. Nivell físic base
+        let levelScore = 55;
+        if (level === 'beginner') levelScore = 30;
+        else if (level === 'advanced') levelScore = 85;
+
+        // 2. Factor Edat
+        let fAge = 1.0;
+        if (age > 75) fAge = 0.65;
+        else if (age > 60) fAge = 0.80;
+        else if (age > 45) fAge = 0.95;
+
+        // 3. Factor Pes Mancuernes (normalitzat, referència 15kg)
+        let weightFactor = Math.min(1.2, maxWeight / 15);
+
+        // Càlcul de l'Índex d'Intensitat
+        let rawIndex = Math.round(levelScore * fAge * ((weightFactor + 1) / 2));
+        let finalIndex = Math.max(10, Math.min(100, rawIndex));
+
+        // Actualitzar valor numèric
+        const koraGaugeVal = document.getElementById('koraGaugeVal');
+        if (koraGaugeVal) {
+            koraGaugeVal.innerText = `${finalIndex}%`;
+        }
+
+        // Actualitzar cercle gauge
+        const koraGaugeProgress = document.getElementById('koraGaugeProgress');
+        if (koraGaugeProgress) {
+            // Circumferència = 251.2
+            const offset = 251.2 - (finalIndex / 100) * 251.2;
+            koraGaugeProgress.style.strokeDashoffset = offset;
+            
+            // Canviar color segons nivell
+            if (finalIndex < 35) {
+                koraGaugeProgress.style.stroke = '#81c784'; // Verd mobilitat
+            } else if (finalIndex < 55) {
+                koraGaugeProgress.style.stroke = '#4db6ac'; // Teal acondicionament
+            } else if (finalIndex < 75) {
+                koraGaugeProgress.style.stroke = '#4facfe'; // Blau salut
+            } else if (finalIndex < 90) {
+                koraGaugeProgress.style.stroke = '#ffb74d'; // Taronja actiu
+            } else {
+                koraGaugeProgress.style.stroke = '#ff5252'; // Vermell intens
+            }
+        }
+
+        // Actualitzar descripció i badge
+        const koraIndexBadge = document.getElementById('koraIndexBadge');
+        const koraIndexDesc = document.getElementById('koraIndexDesc');
+        if (koraIndexBadge && koraIndexDesc) {
+            if (finalIndex < 35) {
+                koraIndexBadge.innerText = t('kora_badge_mobility');
+                koraIndexBadge.className = 'kora-index-badge mobility';
+                koraIndexDesc.innerText = t('kora_desc_mobility');
+            } else if (finalIndex < 55) {
+                koraIndexBadge.innerText = t('kora_badge_conditioning');
+                koraIndexBadge.className = 'kora-index-badge conditioning';
+                koraIndexDesc.innerText = t('kora_desc_conditioning');
+            } else if (finalIndex < 75) {
+                koraIndexBadge.innerText = t('kora_badge_toning');
+                koraIndexBadge.className = 'kora-index-badge toning';
+                koraIndexDesc.innerText = t('kora_desc_toning');
+            } else if (finalIndex < 90) {
+                koraIndexBadge.innerText = t('kora_badge_active');
+                koraIndexBadge.className = 'kora-index-badge active';
+                koraIndexDesc.innerText = t('kora_desc_active');
+            } else {
+                koraIndexBadge.innerText = t('kora_badge_max');
+                koraIndexBadge.className = 'kora-index-badge max';
+                koraIndexDesc.innerText = t('kora_desc_max');
+            }
         }
     }
 
@@ -1344,6 +1434,17 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('pTheme').addEventListener('change', (e) => {
         applyTheme(e.target.value);
     });
+
+    // Associar esdeveniments per a l'actualització de l'Índex en temps real
+    const pAgeInput = document.getElementById('pAge');
+    const pSexInput = document.getElementById('pSex');
+    const pMaxWeightInput = document.getElementById('pMaxWeight');
+    const pLevelInput = document.getElementById('pLevel');
+
+    if (pAgeInput) pAgeInput.addEventListener('input', updateKoraIntensityIndex);
+    if (pSexInput) pSexInput.addEventListener('change', updateKoraIntensityIndex);
+    if (pMaxWeightInput) pMaxWeightInput.addEventListener('input', updateKoraIntensityIndex);
+    if (pLevelInput) pLevelInput.addEventListener('change', updateKoraIntensityIndex);
 
     // Canvi de Pestanyes (Navegació)
     navTabs.forEach(tab => {
