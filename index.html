@@ -171,27 +171,18 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label data-i18n="label_max_weight">Pes màxim mancuernes (kg)</label>
-                            <input type="number" id="pMaxWeight" value="10" min="1" max="100">
-                        </div>
-                        <div class="form-row"
-                            style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; align-items: start;">
+                        <div class="form-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                            <div class="form-group">
+                                <label data-i18n="label_max_weight">Pes màxim mancuernes (kg)</label>
+                                <input type="number" id="pMaxWeight" value="10" min="1" max="100">
+                            </div>
                             <div class="form-group">
                                 <label data-i18n="label_level">Nivell de condició física</label>
                                 <select id="pLevel">
                                     <option value="beginner" data-i18n="level_beginner">Principiant</option>
-                                    <option value="intermediate" selected data-i18n="level_intermediate">Intermedi
-                                    </option>
+                                    <option value="intermediate" selected data-i18n="level_intermediate">Intermedi</option>
                                     <option value="advanced" data-i18n="level_advanced">Avançat</option>
                                 </select>
-                            </div>
-                            <div class="form-group">
-                                <label data-i18n="label_default_circuit">Entrenament per defecte en mode circuit</label>
-                                <label class="switch" style="margin-top: 0.5rem;">
-                                    <input type="checkbox" id="pDefaultCircuit">
-                                    <span class="slider"></span>
-                                </label>
                             </div>
                         </div>
                     <!-- Índex d'Intensitat Kora360 (dins del formulari) -->
@@ -233,6 +224,14 @@
                                 <option value="en">English</option>
                             </select>
                         </div>
+                    </div>
+
+                    <div class="form-group" style="display: flex; justify-content: space-between; align-items: center; margin-top: 0.5rem; padding-top: 0.75rem; border-top: 1px dashed var(--border-color);">
+                        <label data-i18n="label_default_circuit" style="margin-bottom: 0; font-weight: 600; font-size: 0.85rem; color: var(--text-secondary);">Entrenament per defecte en mode circuit</label>
+                        <label class="switch">
+                            <input type="checkbox" id="pDefaultCircuit">
+                            <span class="slider"></span>
+                        </label>
                     </div>
                 </form>
                 </div>
