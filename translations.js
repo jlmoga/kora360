@@ -33,6 +33,10 @@ const I18N = {
         "mat_pes_corporal": "Pes corporal",
         "mat_rem": "Rem",
         "mat_pilota": "Pilota",
+
+        // Publicitat
+        "ad_countdown": "Pots tancar en {n}s",
+        "ad_close": "Tancar",
         
         // Selecció i Rutines
         "selection_count": "{n} exercicis seleccionats",
@@ -176,6 +180,10 @@ const I18N = {
         "mat_pes_corporal": "Peso corporal",
         "mat_rem": "Remo",
         "mat_pilota": "Pelota",
+
+        // Publicidad
+        "ad_countdown": "Puedes cerrar en {n}s",
+        "ad_close": "Cerrar",
         
         // Selección y Rutinas
         "selection_count": "{n} ejercicios seleccionados",
@@ -319,6 +327,10 @@ const I18N = {
         "mat_pes_corporal": "Body weight",
         "mat_rem": "Row",
         "mat_pilota": "Ball",
+
+        // Advertising
+        "ad_countdown": "Close in {n}s",
+        "ad_close": "Close",
         
         // Selection and Routines
         "selection_count": "{n} exercises selected",

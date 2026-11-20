@@ -196,6 +196,10 @@ document.addEventListener('DOMContentLoaded', () => {
         // Guardar a l'historial
         if (push) {
             history.pushState({ view: view }, '', `#${view}`);
+            // Avaluar publicitat al canviar de pestanya (si es compleixen regles de seguretat i cooldown)
+            if (canShowAd() && Math.random() < AD_CONFIG.navProbability) {
+                showAdModal();
+            }
         }
     }
     // --- ELEMENTS DOM ---
@@ -247,6 +251,152 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.body.classList.remove('modal-open');
             }
         }, 100);
+    }
+
+    // --- GESTIÓ DE PUBLICITAT (SPLASH PUBLICITARI RUMB) ---
+    const AD_CONFIG = {
+        initialGraceMs: 3 * 60 * 1000,   // 3 minuts des de l'inici de l'app
+        cooldownMs: 10 * 60 * 1000,      // 10 minuts mínim entre anuncis
+        maxPerSession: 2,                 // Màxim 2 anuncis per sessió
+        countdownSec: 5,                  // 5 segons de bloqueig obligatori
+        navProbability: 0.4,              // 40% de probabilitat en canviar de pestanya
+        targetUrl: 'https://www.calaixagil.com/rumb'
+    };
+    let appStartTime = Date.now();
+    let sessionAdCount = 0;
+    let adCountdownTimer = null;
+
+    function canShowAd() {
+        if (currentRoutineExecution || (executionModal && executionModal.classList.contains('open'))) {
+            return false;
+        }
+        const adModal = document.getElementById('adModal');
+        if (adModal && adModal.classList.contains('open')) {
+            return false;
+        }
+        if (sessionAdCount >= AD_CONFIG.maxPerSession) {
+            return false;
+        }
+        const now = Date.now();
+        if (now - appStartTime < AD_CONFIG.initialGraceMs) {
+            return false;
+        }
+        const lastAdTime = parseInt(localStorage.getItem('kora360_last_ad_time') || '0', 10);
+        if (now - lastAdTime < AD_CONFIG.cooldownMs) {
+            return false;
+        }
+        return true;
+    }
+
+    function getBestAdImageSrc() {
+        const lang = (profile && profile.lang === 'es') ? 'esp' : ((profile && profile.lang === 'en') ? 'en' : 'cat');
+        const isPortrait = window.innerHeight >= window.innerWidth;
+        const dpr = window.devicePixelRatio || 1;
+        const screenW = Math.round(window.innerWidth * dpr);
+        const screenH = Math.round(window.innerHeight * dpr);
+
+        if (isPortrait) {
+            const portraitOptions = [
+                { w: 480, h: 854, file: 'splash_portrait_480x854.png' },
+                { w: 720, h: 1280, file: 'splash_portrait_720x1280.png' },
+                { w: 720, h: 1600, file: 'splash_portrait_720x1600.png' },
+                { w: 1080, h: 1920, file: 'splash_portrait_1080x1920.png' },
+                { w: 1080, h: 2400, file: 'splash_portrait_1080x2400.png' }
+            ];
+            let best = portraitOptions[3];
+            let minDiff = Infinity;
+            const targetRatio = screenH / screenW;
+            portraitOptions.forEach(opt => {
+                const optRatio = opt.h / opt.w;
+                const diff = Math.abs(opt.h - screenH) + Math.abs(optRatio - targetRatio) * 600;
+                if (diff < minDiff) {
+                    minDiff = diff;
+                    best = opt;
+                }
+            });
+            return `img/splash publicitari/${lang}/${best.file}`;
+        } else {
+            const landscapeOptions = [
+                { w: 854, h: 480, file: 'splash_landscape_854x480.png' },
+                { w: 1280, h: 720, file: 'splash_landscape_1280x720.png' },
+                { w: 1600, h: 720, file: 'splash_landscape_1600x720.png' },
+                { w: 1920, h: 1080, file: 'splash_landscape_1920x1080.png' },
+                { w: 2400, h: 1080, file: 'splash_landscape_2400x1080.png' }
+            ];
+            let best = landscapeOptions[3];
+            let minDiff = Infinity;
+            const targetRatio = screenW / screenH;
+            landscapeOptions.forEach(opt => {
+                const optRatio = opt.w / opt.h;
+                const diff = Math.abs(opt.w - screenW) + Math.abs(optRatio - targetRatio) * 600;
+                if (diff < minDiff) {
+                    minDiff = diff;
+                    best = opt;
+                }
+            });
+            return `img/splash publicitari/${lang}/${best.file}`;
+        }
+    }
+
+    function showAdModal() {
+        const adModal = document.getElementById('adModal');
+        const adBannerImg = document.getElementById('adBannerImg');
+        const adCloseBtn = document.getElementById('adCloseBtn');
+        const adCountdownBadge = document.getElementById('adCountdownBadge');
+        const adCountdownText = document.getElementById('adCountdownText');
+
+        if (!adModal || !adBannerImg) return;
+
+        sessionAdCount++;
+        localStorage.setItem('kora360_last_ad_time', Date.now().toString());
+
+        adBannerImg.src = getBestAdImageSrc();
+
+        let remaining = AD_CONFIG.countdownSec;
+        if (adCloseBtn) adCloseBtn.classList.add('hidden');
+        if (adCountdownBadge) adCountdownBadge.classList.remove('hidden');
+        if (adCountdownText) {
+            adCountdownText.textContent = t('ad_countdown', { n: remaining });
+        }
+
+        openModal(adModal);
+
+        if (adCountdownTimer) clearInterval(adCountdownTimer);
+        adCountdownTimer = setInterval(() => {
+            remaining--;
+            if (remaining > 0) {
+                if (adCountdownText) {
+                    adCountdownText.textContent = t('ad_countdown', { n: remaining });
+                }
+            } else {
+                clearInterval(adCountdownTimer);
+                adCountdownTimer = null;
+                if (adCountdownBadge) adCountdownBadge.classList.add('hidden');
+                if (adCloseBtn) adCloseBtn.classList.remove('hidden');
+            }
+        }, 1000);
+    }
+
+    function closeAdModal() {
+        const adModal = document.getElementById('adModal');
+        if (adCountdownTimer) {
+            clearInterval(adCountdownTimer);
+            adCountdownTimer = null;
+        }
+        if (adModal) {
+            closeModal(adModal);
+        }
+    }
+
+    function openAdExternalLink() {
+        const url = AD_CONFIG.targetUrl;
+        if (window.cordova && window.cordova.InAppBrowser) {
+            window.cordova.InAppBrowser.open(url, '_system');
+        } else if (window.open) {
+            window.open(url, '_system');
+        } else {
+            window.location.href = url;
+        }
     }
 
     let currentCategory = 'tots';
@@ -869,6 +1019,13 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
         currentRoutineExecution = null;
+
+        // Comprovació de publicitat post-entrenament (moment idoni de descans)
+        setTimeout(() => {
+            if (canShowAd()) {
+                showAdModal();
+            }
+        }, 1200);
     }
 
     // --- GESTIÓ DE RUTINES ---
@@ -1467,6 +1624,24 @@ document.addEventListener('DOMContentLoaded', () => {
     if (pLangInput) pLangInput.addEventListener('change', handleProfileChange);
     if (pDefaultCircuitInput) pDefaultCircuitInput.addEventListener('change', handleProfileChange);
 
+    // Esdeveniments per a la Publicitat (Banner Rumb)
+    const adModalEl = document.getElementById('adModal');
+    const adModalContainer = document.getElementById('adModalContainer');
+    const adCloseBtn = document.getElementById('adCloseBtn');
+
+    if (adModalContainer) {
+        adModalContainer.addEventListener('click', (e) => {
+            if (e.target.closest('#adCloseBtn')) return;
+            openAdExternalLink();
+        });
+    }
+    if (adCloseBtn) {
+        adCloseBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            closeAdModal();
+        });
+    }
+
     // Canvi de Pestanyes (Navegació)
     navTabs.forEach(tab => {
         tab.addEventListener('click', () => {
@@ -1478,6 +1653,15 @@ document.addEventListener('DOMContentLoaded', () => {
     // Gestió del botó "Back" (History API)
     window.addEventListener('popstate', (event) => {
         const state = event.state || {};
+
+        // Si l'anunci és obert
+        if (adModalEl && adModalEl.classList.contains('open')) {
+            // Només permetem tancar per botó back si ja s'ha superat el temps de bloqueig (botó X visible)
+            if (adCloseBtn && !adCloseBtn.classList.contains('hidden')) {
+                closeAdModal();
+            }
+            return;
+        }
         
         // 1. Si hi ha modals oberts, els tanquem SEGONS L'ESTAT
         // Si no hi ha 'modal' a l'estat, tanquem tots els modals que estiguin oberts
