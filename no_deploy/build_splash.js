@@ -2,8 +2,8 @@ const fs = require('fs');
 const { execSync } = require('child_process');
 const path = require('path');
 
-const svgContent = fs.readFileSync('Z:/Projectes Antigravity/kora360/img/logo_calaixagil.svg', 'utf8');
-const iconBase64 = fs.readFileSync('Z:/Projectes Antigravity/kora360/img/icon-512 real.png').toString('base64');
+const svgContent = fs.readFileSync('Z:/Projectes Antigravity/kora360/www/img/logo_calaixagil.svg', 'utf8');
+const iconBase64 = fs.readFileSync('Z:/Projectes Antigravity/kora360/www/img/icon-512 real.png').toString('base64');
 
 const html = `<!DOCTYPE html>
 <html>
@@ -167,9 +167,9 @@ console.log('Running chrome render...');
 execSync(cmd, { stdio: 'inherit' });
 console.log('Splash image generated at:', outPngPath);
 
-// Also copy to img/splash.png
-fs.copyFileSync(outPngPath, 'Z:/Projectes Antigravity/kora360/img/splash.png');
-console.log('Copied to Z:/Projectes Antigravity/kora360/img/splash.png');
+// Also copy to www/img/splash.png
+fs.copyFileSync(outPngPath, 'Z:/Projectes Antigravity/kora360/www/img/splash.png');
+console.log('Copied to Z:/Projectes Antigravity/kora360/www/img/splash.png');
 
 if (fs.existsSync(tmpHtmlPath)) {
   fs.unlinkSync(tmpHtmlPath);

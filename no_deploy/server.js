@@ -3,13 +3,13 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 8080;
 
-// Servir fitxers estàtics des de l'arrel
-app.use(express.static(path.join(__dirname, './')));
+// Servir fitxers estàtics des de la carpeta www
+app.use(express.static(path.join(__dirname, '../www')));
 
 // Middleware de fallback: si cap ruta coincideix (i no és un fitxer estàtic), servim index.html
 // Això evita problemes de sintaxi amb asteriscs en versions noves d'Express
 app.use((req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
+    res.sendFile(path.join(__dirname, '../www/index.html'));
 });
 
 // Escoltar en 0.0.0.0 per permetre l'accés des de la xarxa local (Android)

@@ -1,3 +1,3 @@
 @echo off
 echo Obrint Kora 360 al navegador...
-start "" "index.html"
+start "" "www\index.html"
